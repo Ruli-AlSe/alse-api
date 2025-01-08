@@ -31,3 +31,5 @@
 
 es:
   hello: 'Hola mundo'
+  user:
+    bad_credentials: 'Usuario o contraseña incorrectos'
