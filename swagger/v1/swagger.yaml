@@ -19,6 +19,28 @@ paths:
             schema:
               "$ref": "#/components/schemas/user"
         description: JSON to create the user
+  "/{locale}/v1/users/login":
+    parameters:
+    - name: locale
+      in: path
+      description: locale
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Users login
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/login_user"
+        description: JSON to login
 components:
   securitySchemes: {}
   schemas:
@@ -47,6 +69,19 @@ components:
           age: 31
           store_attributes:
             name: test
+    login_user:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+      example:
+        user:
+          email: test@example.com
+          password: '12345678'
 servers:
 - url: "{defaultHost}"
   variables:

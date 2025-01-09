@@ -51,6 +51,19 @@ RSpec.configure do |config|
                 }
               }
             }
+          },
+          login_user: {
+            type: 'object',
+            properties: {
+              email: { type: 'string', required: true },
+              password: { type: 'string', required: true }
+            },
+            example: {
+              user: {
+                email: 'test@example.com',
+                password: '12345678'
+              }
+            }
           }
         },
       },

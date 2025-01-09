@@ -25,23 +25,25 @@ RSpec.describe 'v1/users', type: :request do
     end
   end
 
-  # path '(/{locale)}/v1/users/login' do
-  #   # You'll want to customize the parameter types...
-  #   parameter name: 'locale', in: :path, type: :string, description: 'locale'
+  path '/{locale}/v1/users/login' do
+    parameter name: 'locale', in: :path, type: :string, description: 'locale'
 
-  #   post('create user') do
-  #     response(200, 'successful') do
-  #       let(:locale) { '123' }
+    post('Users login') do
+      tags :Users
+      consumes 'application/json'
+      parameter name: 'payload', in: :body, description: 'JSON to login',
+                schema: { '$ref' => '#/components/schemas/login_user' }
 
-  #       after do |example|
-  #         example.metadata[:response][:content] = {
-  #           'application/json' => {
-  #             example: JSON.parse(response.body, symbolize_names: true)
-  #           }
-  #         }
-  #       end
-  #       run_test!
-  #     end
-  #   end
-  # end
+      response(200, 'successful') do
+        let(:locale) { 'es' }
+        let(:user) { create(:owner, password: '12345678') }
+        let(:payload) {
+          { user: { email: user.email,
+                    password: '12345678' } }
+        }
+
+        run_test!
+      end
+    end
+  end
 end
