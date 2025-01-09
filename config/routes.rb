@@ -7,7 +7,7 @@ Rails.application.routes.draw do
         post 'login', on: :collection
       end
       resources :stores, only: %i[show]
-      resources :products, only: %i[index create update]
+      resources :products, only: %i[index create update destroy]
     end
   end
 end
