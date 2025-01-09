@@ -15,5 +15,9 @@ RSpec.describe Store, type: :model do
     it 'validate if exists relation with employee' do
       should have_many(:employees)
     end
+
+    it 'validate if exists relation with products' do
+      should have_many(:products)
+    end
   end
 end
