@@ -42,7 +42,12 @@ paths:
               "$ref": "#/components/schemas/login_user"
         description: JSON to login
 components:
-  securitySchemes: {}
+  securitySchemes:
+    Bearer:
+      description: Bearer token of the logged user to access the API ressources
+      type: apiKey
+      in: header
+      name: Authorization
   schemas:
     user:
       type: object

@@ -25,6 +25,12 @@ RSpec.configure do |config|
       components: {
         securitySchemes: {
           # tokens
+          Bearer: {
+            description: 'Bearer token of the logged user to access the API ressources',
+            type: :apiKey,
+            in: :header,
+            name: :Authorization
+          }
         },
         schemas: {
           # models
