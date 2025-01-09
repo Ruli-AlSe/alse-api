@@ -20,7 +20,7 @@ class ApplicationController < ActionController::API
 
   private
 
-  def search_token_request headers
+  def search_token_request(headers)
     return nil unless headers['Authorization']
 
     match = headers['Authorization'].match(/Bearer (\w+)/)
