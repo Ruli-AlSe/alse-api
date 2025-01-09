@@ -8,4 +8,13 @@ describe 'Product routes' do
       action: 'create'
     )
   end
+
+  it 'update product route' do
+    expect(put: 'v1/products/1').to route_to(
+      format: :json,
+      controller: 'v1/products',
+      action: 'update',
+      id: '1'
+    )
+  end
 end
