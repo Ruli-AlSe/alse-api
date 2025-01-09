@@ -17,6 +17,7 @@ module V1
       @user = User.find_by(email: login_params[:email])
 
       if @user.present? && @user.authenticate(login_params[:password])
+        @token = @user.tokens.create
         render :show, status: :ok
       else
         render(json: { errors: I18n.t('user.bad_credentials') }, status: :bad_request)
