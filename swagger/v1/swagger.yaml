@@ -4,34 +4,51 @@ info:
   title: API V1
   version: v1
 paths:
-  "(/{locale)}/v1/users/login":
-    parameters:
-    - name: locale
-      in: path
-      description: locale
-      required: true
-      schema:
-        type: string
+  "/v1/users":
     post:
-      summary: login user
+      summary: Users register
+      tags:
+      - Users
+      parameters: []
       responses:
-        '200':
+        '201':
           description: successful
-  "(/{locale)}/v1/users":
-    parameters:
-    - name: locale
-      in: path
-      description: locale
-      required: true
-      schema:
-        type: string
-    post:
-      summary: create user
-      responses:
-        '200':
-          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user"
+        description: JSON to create the user
+components:
+  securitySchemes: {}
+  schemas:
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        age:
+          type: integer
+          required: true
+        store_attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+      example:
+        user:
+          email: test@example.com
+          password: '12345678'
+          age: 31
+          store_attributes:
+            name: test
 servers:
-- url: https://{defaultHost}
+- url: "{defaultHost}"
   variables:
     defaultHost:
-      default: www.example.com
+      default: http://localhost:3000

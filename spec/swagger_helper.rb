@@ -22,12 +22,44 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
+      components: {
+        securitySchemes: {
+          # tokens
+        },
+        schemas: {
+          # models
+          user: {
+            type: 'object',
+            properties: {
+              email: { type: 'string', required: true },
+              password: { type: 'string', required: true },
+              age: { type: 'integer', required: true },
+              store_attributes: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string', required: true }
+                }
+              }
+            },
+            example: {
+              user: {
+                email: 'test@example.com',
+                password: '12345678',
+                age: 31,
+                store_attributes: {
+                  name: 'test'
+                }
+              }
+            }
+          }
+        },
+      },
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: '{defaultHost}',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: ENV['HOST'] || 'http://localhost:3000'
             }
           }
         }
