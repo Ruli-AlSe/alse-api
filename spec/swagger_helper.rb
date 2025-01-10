@@ -70,8 +70,29 @@ RSpec.configure do |config|
                 password: '12345678'
               }
             }
+          },
+          product_id: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer', required: true }
+            }
+          },
+          product: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: true },
+              description: { type: 'string', required: true },
+              price: { type: 'number', required: true }
+            },
+            example: {
+              product: {
+                name: 'test',
+                description: 'product description',
+                price: 50.0
+              }
+            }
           }
-        },
+        }
       },
       servers: [
         {

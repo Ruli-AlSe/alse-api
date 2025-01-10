@@ -4,6 +4,46 @@ info:
   title: API V1
   version: v1
 paths:
+  "/v1/products":
+    post:
+      summary: Products create
+      tags:
+      - Products
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: successful
+        '401':
+          description: not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product"
+        description: JSON to create the product
+  "/v1/products/{id}":
+    put:
+      summary: Products update
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        description: Product id
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product"
+        description: JSON to update the product
   "/v1/users":
     post:
       summary: Users register
@@ -87,6 +127,29 @@ components:
         user:
           email: test@example.com
           password: '12345678'
+    product_id:
+      type: object
+      properties:
+        id:
+          type: integer
+          required: true
+    product:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        price:
+          type: number
+          required: true
+      example:
+        product:
+          name: test
+          description: product description
+          price: 50.0
 servers:
 - url: "{defaultHost}"
   variables:
