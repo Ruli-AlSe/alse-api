@@ -23,7 +23,33 @@ paths:
             schema:
               "$ref": "#/components/schemas/product"
         description: JSON to create the product
+    get:
+      summary: Products list
+      tags:
+      - Products
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
   "/v1/products/{id}":
+    delete:
+      summary: Delete a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        type: string
+        description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
     put:
       summary: Products update
       tags:
@@ -32,6 +58,8 @@ paths:
       - name: id
         in: path
         description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
         required: true
       security:
       - Bearer: []
@@ -44,6 +72,24 @@ paths:
             schema:
               "$ref": "#/components/schemas/product"
         description: JSON to update the product
+  "/v1/products/{product_id}/restore":
+    post:
+      summary: Restore a product
+      tags:
+      - Products
+      parameters:
+      - name: product_id
+        in: path
+        type: string
+        description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
   "/v1/users":
     post:
       summary: Users register
@@ -128,11 +174,9 @@ components:
           email: test@example.com
           password: '12345678'
     product_id:
-      type: object
-      properties:
-        id:
-          type: integer
-          required: true
+      type: integer
+      required: true
+      example: 1
     product:
       type: object
       properties:

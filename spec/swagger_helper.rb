@@ -72,10 +72,9 @@ RSpec.configure do |config|
             }
           },
           product_id: {
-            type: 'object',
-            properties: {
-              id: { type: 'integer', required: true }
-            }
+            type: 'integer',
+            required: true,
+            example: 1
           },
           product: {
             type: 'object',
