@@ -23,7 +23,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -32,6 +32,7 @@ group :development, :test do
   gem 'faker', '~> 2.16'
   gem 'pry-rails', '~> 0.3.9'
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'rswag-specs', '~> 2.4'
 end
 
 group :test do
@@ -49,4 +50,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'paranoia', '~> 2.4'
 gem 'rails-i18n', '~> 6.0'
+gem 'rswag-api', '~> 2.4'
+gem 'rswag-ui', '~> 2.4'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

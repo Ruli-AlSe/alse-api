@@ -1,0 +1,201 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/v1/products":
+    post:
+      summary: Products create
+      tags:
+      - Products
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: successful
+        '401':
+          description: not authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product"
+        description: JSON to create the product
+    get:
+      summary: Products list
+      tags:
+      - Products
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/v1/products/{id}":
+    delete:
+      summary: Delete a product
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        type: string
+        description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: Products update
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/product"
+        description: JSON to update the product
+  "/v1/products/{product_id}/restore":
+    post:
+      summary: Restore a product
+      tags:
+      - Products
+      parameters:
+      - name: product_id
+        in: path
+        type: string
+        description: Product id
+        schema:
+          "$ref": "#/components/schemas/product_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+  "/v1/users":
+    post:
+      summary: Users register
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '201':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/user"
+        description: JSON to create the user
+  "/{locale}/v1/users/login":
+    parameters:
+    - name: locale
+      in: path
+      description: locale
+      required: true
+      schema:
+        type: string
+    post:
+      summary: Users login
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/login_user"
+        description: JSON to login
+components:
+  securitySchemes:
+    Bearer:
+      description: Bearer token of the logged user to access the API ressources
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    user:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+        age:
+          type: integer
+          required: true
+        store_attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              required: true
+      example:
+        user:
+          email: test@example.com
+          password: '12345678'
+          age: 31
+          store_attributes:
+            name: test
+    login_user:
+      type: object
+      properties:
+        email:
+          type: string
+          required: true
+        password:
+          type: string
+          required: true
+      example:
+        user:
+          email: test@example.com
+          password: '12345678'
+    product_id:
+      type: integer
+      required: true
+      example: 1
+    product:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        price:
+          type: number
+          required: true
+      example:
+        product:
+          name: test
+          description: product description
+          price: 50.0
+servers:
+- url: "{defaultHost}"
+  variables:
+    defaultHost:
+      default: http://localhost:3000
