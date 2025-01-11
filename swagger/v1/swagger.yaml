@@ -180,20 +180,24 @@ components:
     post:
       type: object
       properties:
-        name:
+        title:
           type: string
           required: true
-        description:
+        content:
           type: string
           required: true
-        price:
-          type: number
+        image_url:
+          type: string
           required: true
+        credits:
+          type: string
+          required: false
       example:
         post:
-          name: test
-          description: post description
-          price: 50.0
+          title: test
+          content: post description
+          image_url: image.url.com
+          credits: "(page.link, page name, user name)"
 servers:
 - url: "{defaultHost}"
   variables:

@@ -2,10 +2,10 @@ class Post < ApplicationRecord
   # custom types
   attribute :credits, CreditsType.new
 
-  #callbacks
+  # callbacks
   acts_as_paranoid
 
-  #relations
+  # relations
   belongs_to :company
 
   # Validations

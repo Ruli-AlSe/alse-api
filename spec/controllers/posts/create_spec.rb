@@ -8,8 +8,8 @@ RSpec.describe V1::PostsController, type: :controller do
     let(:post_info) {
       { title: Faker::Book.title,
         content: Faker::Lorem.sentence(word_count: 50),
-        credits: '(page.link.com, page name, user name)',
-       image_url: 'image.url'}
+        image_url: 'image.url',
+        credits: '(page.link.com, page name, user name)' }
     }
 
     context 'Post registered successfully' do

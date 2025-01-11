@@ -9,7 +9,7 @@ class Credits
   end
 
   def sanitize_string(values)
-    values.delete('()').split(',').map(&:to_s)
+    values.delete('()').split(',')
   end
 
   def to_s
