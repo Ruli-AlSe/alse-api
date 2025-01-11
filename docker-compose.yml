@@ -1,13 +1,13 @@
 version: '3'
 volumes:
-  postgresql_store_api:
+  postgresql_blog_api:
   # bundle_path_store_api:
 services:
-  db_store:
+  db_blog:
     restart: on-failure:3
     image: postgres:15.3
     volumes:
-      - postgresql_store_api:/var/lib/postgresql/data
+      - postgresql_blog_api:/var/lib/postgresql/data
     ports:
       - 5436:5432
     environment:

@@ -44,8 +44,8 @@ RSpec.describe User, type: :model do
       should validate_inclusion_of(:type).in_array(%w[Owner Employee])
     end
 
-    it 'validate if exists relation with store' do
-      should belong_to(:store)
+    it 'validate if exists relation with company' do
+      should belong_to(:company)
     end
 
     it 'validate relation with tokens' do

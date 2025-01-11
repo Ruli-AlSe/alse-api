@@ -5,7 +5,7 @@ RSpec.describe V1::ProductsController, type: :controller do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
-    let(:product) { create(:product, store: user.store) }
+    let(:product) { create(:product, company: user.company) }
 
     context 'product removed successfully' do
       before do

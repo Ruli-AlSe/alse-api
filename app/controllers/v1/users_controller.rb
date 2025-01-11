@@ -31,7 +31,7 @@ module V1
     end
 
     def user_params
-      params.require(:user).permit(:email, :age, :password, store_attributes: %i[name])
+      params.require(:user).permit(:email, :age, :password, company_attributes: %i[name])
     end
   end
 end

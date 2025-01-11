@@ -24,7 +24,7 @@ RSpec.describe V1::ProductsController, type: :controller do
 
       context 'response with correct product structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :description, :price, :store_id, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :name, :description, :price, :company_id, :created_at, :updated_at) }
       end
     end
 

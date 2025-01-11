@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Product, type: :model do
   describe 'Validations in product model' do
-    it 'should validate if store_id is present' do
-      should validate_presence_of(:store_id)
+    it 'should validate if company_id is present' do
+      should validate_presence_of(:company_id)
     end
 
     it 'should validate if name is present' do
@@ -18,8 +18,8 @@ RSpec.describe Product, type: :model do
       should validate_presence_of(:price)
     end
 
-    it 'should validate product belogs to a store' do
-      should belong_to(:store)
+    it 'should validate product belogs to a company' do
+      should belong_to(:company)
     end
   end
 end

@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Store, type: :model do
-  describe 'Store validations' do
-    subject { build(:store) }
+RSpec.describe Company, type: :model do
+  describe 'Company validations' do
+    subject { build(:company) }
 
     it 'Validate if name is present' do
       should validate_presence_of(:name)

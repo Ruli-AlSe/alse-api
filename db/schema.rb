@@ -10,27 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_09_074502) do
+ActiveRecord::Schema.define(version: 2025_01_11_032828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
     t.float "price"
-    t.bigint "store_id", null: false
+    t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.datetime "deleted_at"
+    t.index ["company_id"], name: "index_products_on_company_id"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
-    t.index ["store_id"], name: "index_products_on_store_id"
-  end
-
-  create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -49,11 +49,11 @@ ActiveRecord::Schema.define(version: 2025_01_09_074502) do
     t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "store_id", null: false
-    t.index ["store_id"], name: "index_users_on_store_id"
+    t.bigint "company_id", null: false
+    t.index ["company_id"], name: "index_users_on_company_id"
   end
 
-  add_foreign_key "products", "stores"
+  add_foreign_key "products", "companies"
   add_foreign_key "tokens", "users"
-  add_foreign_key "users", "stores"
+  add_foreign_key "users", "companies"
 end

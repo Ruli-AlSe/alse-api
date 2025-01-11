@@ -5,7 +5,7 @@ RSpec.describe V1::ProductsController, type: :controller do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
-    let(:product) { create(:product, store: user.store) }
+    let(:product) { create(:product, company: user.company) }
 
     context 'Product updated successfully' do
       before do
@@ -20,7 +20,7 @@ RSpec.describe V1::ProductsController, type: :controller do
 
       context 'response with correct product structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :description, :price, :store_id, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :name, :description, :price, :company_id, :created_at, :updated_at) }
       end
     end
 

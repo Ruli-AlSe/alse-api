@@ -1,15 +1,15 @@
 module V1
   class ProductsController < ApplicationController
     before_action :authenticate_user
-    before_action :set_store
+    before_action :set_company
     before_action :set_product, only: %i[update destroy]
 
     def index
-      @products = @store.products
+      @products = @company.products
     end
 
     def create
-      @product = @store.products.new(product_params)
+      @product = @company.products.new(product_params)
 
       if @product.valid?
         @product.save
@@ -33,7 +33,7 @@ module V1
     end
 
     def restore
-      @product = @store.products.only_deleted.find_by(id: params[:product_id])
+      @product = @company.products.only_deleted.find_by(id: params[:product_id])
 
       head :not_found unless @product
       Product.restore(@product.id)
@@ -47,12 +47,12 @@ module V1
       params.require(:product).permit(:name, :description, :price)
     end
 
-    def set_store
-      @store = @current_user.store
+    def set_company
+      @company = @current_user.company
     end
 
     def set_product
-      @product = @store.products.find_by(id: params[:id])
+      @product = @company.products.find_by(id: params[:id])
 
       head :not_found unless @product
     end

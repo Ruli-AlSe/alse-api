@@ -6,7 +6,7 @@ RSpec.describe V1::UsersController, type: :controller do
       { email: Faker::Internet.email,
         age: rand(30..100),
         password: Faker::Internet.password(min_length: 10, max_length: 20),
-       store_attributes: { name: Faker::Games::Zelda.game } }
+        company_attributes: { name: Faker::Games::Zelda.game } }
     }
 
     context 'user registered successfully' do
@@ -23,11 +23,11 @@ RSpec.describe V1::UsersController, type: :controller do
       context 'response with correct user data' do
         subject { payload_test }
 
-        it { is_expected.to include(:id, :email, :age, :store, :token) }
+        it { is_expected.to include(:id, :email, :age, :company, :token) }
       end
 
-      context 'response with correct store data' do
-        subject { payload_test[:store] }
+      context 'response with correct company data' do
+        subject { payload_test[:company] }
 
         it { is_expected.to include(:id, :name, :created_at, :updated_at) }
       end

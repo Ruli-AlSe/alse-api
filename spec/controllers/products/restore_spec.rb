@@ -5,7 +5,7 @@ RSpec.describe V1::ProductsController, type: :controller do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
-    let(:product) { create(:product, store: user.store) }
+    let(:product) { create(:product, company: user.company) }
 
     context 'product restored successfully' do
       before do
@@ -22,7 +22,7 @@ RSpec.describe V1::ProductsController, type: :controller do
       context 'response with product restored' do
         subject { payload_test }
         it { is_expected.to include(id: product.id) }
-        it { is_expected.to include(:id, :name, :price, :description, :store_id) }
+        it { is_expected.to include(:id, :name, :price, :description, :company_id) }
       end
     end
 
