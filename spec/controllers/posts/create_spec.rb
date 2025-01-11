@@ -6,9 +6,10 @@ RSpec.describe V1::PostsController, type: :controller do
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
     let(:post_info) {
-      { name: Faker::Book.title,
-        description: Faker::Lorem.sentence(word_count: 50),
-        price: rand(10..100) }
+      { title: Faker::Book.title,
+        content: Faker::Lorem.sentence(word_count: 50),
+        credits: '(page.link.com, page name, user name)',
+       image_url: 'image.url'}
     }
 
     context 'Post registered successfully' do
@@ -24,13 +25,13 @@ RSpec.describe V1::PostsController, type: :controller do
 
       context 'response with correct post structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :description, :price, :company_id, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :title, :content, :credits, :company_id, :created_at, :updated_at) }
       end
     end
 
     context 'Post not registered' do
       before do
-        post_info[:name] = ''
+        post_info[:title] = ''
         request.headers.merge!(headers)
         post(:create, format: :json, params: { post: post_info })
       end

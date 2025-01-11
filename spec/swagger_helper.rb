@@ -79,15 +79,17 @@ RSpec.configure do |config|
           post: {
             type: 'object',
             properties: {
-              name: { type: 'string', required: true },
-              description: { type: 'string', required: true },
-              price: { type: 'number', required: true }
+              title: { type: 'string', required: true },
+              content: { type: 'string', required: true },
+              image_url: { type: 'string', required: true },
+              credits: { type: 'string', required: false }
             },
             example: {
               post: {
-                name: 'test',
-                description: 'post description',
-                price: 50.0
+                title: 'test',
+                content: 'post description',
+                image_url: 'image.url.com',
+                credits: '(page.link, page name, user name)'
               }
             }
           }

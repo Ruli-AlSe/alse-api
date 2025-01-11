@@ -20,14 +20,14 @@ RSpec.describe V1::PostsController, type: :controller do
 
       context 'response with correct post structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :description, :price, :company_id, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :title, :content, :credits, :company_id, :created_at, :updated_at) }
       end
     end
 
     context 'Post not updated' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: post.id, post: { name: '' } })
+        put(:update, format: :json, params: { id: post.id, post: { title: '' } })
       end
 
       context 'response with status bad request' do
@@ -43,7 +43,7 @@ RSpec.describe V1::PostsController, type: :controller do
 
     context  'update post without token' do
       before do
-        put(:update, format: :json, params: { id: post.id, post: { name: 'New testing name' } })
+        put(:update, format: :json, params: { id: post.id, post: { title: 'New testing name' } })
       end
 
       context 'response with status unauthorized' do

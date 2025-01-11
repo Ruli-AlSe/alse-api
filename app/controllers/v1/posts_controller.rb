@@ -44,7 +44,7 @@ module V1
     private
 
     def post_params
-      params.require(:post).permit(:name, :description, :price)
+      params.require(:post).permit(:title, :content, :credits, :image_url)
     end
 
     def set_company

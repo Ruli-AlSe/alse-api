@@ -15,9 +15,10 @@ RSpec.describe 'v1/posts', type: :request do
         # we need to specify the Authorization header with the token
         let(:Authorization) { "Bearer #{user_token.token}" }
         let(:payload) {
-          { post: { name: 'test',
-                       description: 'test description',
-                       price: 50 } }
+          { post: { title: 'test',
+                    content: 'test description',
+                    credits: 'link.name, company name, user name',
+                     image_url: 'image.url' } }
         }
         run_test!
       end

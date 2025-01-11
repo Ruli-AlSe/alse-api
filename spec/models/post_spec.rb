@@ -7,15 +7,15 @@ RSpec.describe Post, type: :model do
     end
 
     it 'should validate if name is present' do
-      should validate_presence_of(:name)
+      should validate_presence_of(:title)
     end
 
     it 'should validate if description is present' do
-      should validate_presence_of(:description)
+      should validate_presence_of(:content)
     end
 
-    it 'should validate if price is present' do
-      should validate_presence_of(:price)
+    it 'should validate if image_url is present' do
+      should validate_presence_of(:image_url)
     end
 
     it 'should validate post belogs to a company' do

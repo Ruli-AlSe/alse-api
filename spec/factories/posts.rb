@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :post do
-    name { Faker::Book.title }
-    description { Faker::Lorem.sentence(word_count: 50) }
-    price { rand(10..100) }
+    title { Faker::Book.title }
+    content { Faker::Lorem.sentence(word_count: 50) }
+    credits { "(#{Faker::Internet.domain_name}, #{Faker::Internet.domain_word}, #{Faker::FunnyName.name})" }
+    image_url { Faker::Internet.url }
     company
   end
 end
