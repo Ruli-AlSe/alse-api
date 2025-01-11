@@ -17,7 +17,7 @@ RSpec.describe 'v1/users', type: :request do
           { user: { email: 'test@example.com',
                     password: '12345678',
                     age: 31,
-                    store_attributes: { name: 'test' } } }
+                    company_attributes: { name: 'test' } } }
         }
 
         run_test!

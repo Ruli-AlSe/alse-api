@@ -40,7 +40,7 @@ RSpec.configure do |config|
               email: { type: 'string', required: true },
               password: { type: 'string', required: true },
               age: { type: 'integer', required: true },
-              store_attributes: {
+              company_attributes: {
                 type: 'object',
                 properties: {
                   name: { type: 'string', required: true }
@@ -52,7 +52,7 @@ RSpec.configure do |config|
                 email: 'test@example.com',
                 password: '12345678',
                 age: 31,
-                store_attributes: {
+                company_attributes: {
                   name: 'test'
                 }
               }

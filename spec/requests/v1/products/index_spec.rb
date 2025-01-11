@@ -9,7 +9,7 @@ RSpec.describe 'v1/products', type: :request do
 
       response(200, 'successful') do
         let(:user) { create(:owner) }
-        let(:products) { create_list(:product, 20, store: user.store) }
+        let(:products) { create_list(:product, 20, company: user.company) }
         let(:user_token) { create(:token, user: user) }
         let(:Authorization) { "Bearer #{user_token.token}" }
 

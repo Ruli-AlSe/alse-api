@@ -11,7 +11,7 @@ RSpec.describe 'v1/products', type: :request do
 
       response(200, 'successful') do
         let(:user) { create(:owner) }
-        let(:product) { create(:product, store: user.store, deleted_at: Time.now) }
+        let(:product) { create(:product, company: user.company, deleted_at: Time.now) }
         let(:product_id) { product.id }
         let(:user_token) { create(:token, user: user) }
         let(:Authorization) { "Bearer #{user_token.token}" }

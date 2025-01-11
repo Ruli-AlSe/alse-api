@@ -147,7 +147,7 @@ components:
         age:
           type: integer
           required: true
-        store_attributes:
+        company_attributes:
           type: object
           properties:
             name:
@@ -158,7 +158,7 @@ components:
           email: test@example.com
           password: '12345678'
           age: 31
-          store_attributes:
+          company_attributes:
             name: test
     login_user:
       type: object
