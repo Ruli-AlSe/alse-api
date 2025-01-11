@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe V1::ProductsController, type: :controller do
+RSpec.describe V1::PostsController, type: :controller do
   describe 'Products listing' do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
 
-    context 'get all products correctly' do
+    context 'get all posts correctly' do
       before do
         request.headers.merge! headers
         get(:index, format: :json)
@@ -19,11 +19,11 @@ RSpec.describe V1::ProductsController, type: :controller do
 
       context 'correct structure of response' do
         subject { payload_test }
-        it { is_expected.to include(:products) }
+        it { is_expected.to include(:posts) }
       end
     end
 
-    context 'get products without token' do
+    context 'get posts without token' do
       before do
         get(:index, format: :json)
       end

@@ -21,7 +21,7 @@ RSpec.describe V1::CompaniesController, type: :controller do
     context 'correct structure of company' do
       subject { payload_test }
 
-      it { is_expected.to include(:id, :name)}
+      it { is_expected.to include(:id, :name) }
     end
   end
 

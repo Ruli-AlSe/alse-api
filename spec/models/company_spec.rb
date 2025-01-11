@@ -16,8 +16,8 @@ RSpec.describe Company, type: :model do
       should have_many(:employees)
     end
 
-    it 'validate if exists relation with products' do
-      should have_many(:products)
+    it 'validate if exists relation with posts' do
+      should have_many(:posts)
     end
   end
 end

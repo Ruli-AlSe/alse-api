@@ -1,16 +1,16 @@
 require 'rails_helper'
 
-RSpec.describe V1::ProductsController, type: :controller do
-  describe 'Delete a product' do
+RSpec.describe V1::PostsController, type: :controller do
+  describe 'Delete a post' do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
-    let(:product) { create(:product, company: user.company) }
+    let(:post) { create(:post, company: user.company) }
 
-    context 'product removed successfully' do
+    context 'post removed successfully' do
       before do
         request.headers.merge! headers
-        delete(:destroy, format: :json, params: { id: product.id })
+        delete(:destroy, format: :json, params: { id: post.id })
       end
 
       context 'response with status ok' do
@@ -19,9 +19,9 @@ RSpec.describe V1::ProductsController, type: :controller do
       end
     end
 
-    context 'remove product without token' do
+    context 'remove post without token' do
       before do
-        delete(:destroy, format: :json, params: { id: product.id })
+        delete(:destroy, format: :json, params: { id: post.id })
       end
 
       context 'response with status unauthorized' do

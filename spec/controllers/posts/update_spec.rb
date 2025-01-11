@@ -1,38 +1,33 @@
 require 'rails_helper'
 
-RSpec.describe V1::ProductsController, type: :controller do
-  describe 'Create product' do
+RSpec.describe V1::PostsController, type: :controller do
+  describe 'Update posts' do
     let(:user) { create(:owner) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
-    let(:product) {
-      { name: Faker::Book.title,
-        description: Faker::Lorem.sentence(word_count: 50),
-        price: rand(10..100) }
-    }
+    let(:post) { create(:post, company: user.company) }
 
-    context 'Product registered successfully' do
+    context 'Post updated successfully' do
       before do
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { product: product })
+        put(:update, format: :json, params: { id: post.id, post: { name: 'New testing name' } })
       end
 
-      context 'response with status created' do
+      context 'response with status ok' do
         subject { response }
-        it { is_expected.to have_http_status(:created) }
+        it { is_expected.to have_http_status(:ok) }
       end
 
-      context 'response with correct product structure' do
+      context 'response with correct post structure' do
         subject { payload_test }
         it { is_expected.to include(:id, :name, :description, :price, :company_id, :created_at, :updated_at) }
       end
     end
 
-    context 'Product not registered' do
+    context 'Post not updated' do
       before do
-        product[:name] = ''
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { product: product })
+        put(:update, format: :json, params: { id: post.id, post: { name: '' } })
       end
 
       context 'response with status bad request' do
@@ -46,9 +41,9 @@ RSpec.describe V1::ProductsController, type: :controller do
       end
     end
 
-    context 'register product without token' do
+    context  'update post without token' do
       before do
-        post(:create, format: :json, params: { product: product })
+        put(:update, format: :json, params: { id: post.id, post: { name: 'New testing name' } })
       end
 
       context 'response with status unauthorized' do

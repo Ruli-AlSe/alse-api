@@ -10,8 +10,8 @@ Rails.application.routes.draw do
         post 'login', on: :collection
       end
       resources :companies, only: %i[show]
-      resources :products, only: %i[index create update destroy] do
-        # "v1/products/:product_id/restore"
+      resources :posts, only: %i[index create update destroy] do
+        # "v1/posts/:post_id/restore"
         post 'restore'
       end
     end
