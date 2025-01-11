@@ -1,15 +1,15 @@
 require 'swagger_helper'
 
-RSpec.describe 'v1/products', type: :request do
-  path '/v1/products' do
-    get('Products list') do
-      tags :Products
+RSpec.describe 'v1/posts', type: :request do
+  path '/v1/posts' do
+    get('Posts list') do
+      tags :Posts
       consumes 'application/json'
       security [Bearer: []]
 
       response(200, 'successful') do
         let(:user) { create(:owner) }
-        let(:products) { create_list(:product, 20, company: user.company) }
+        let(:posts) { create_list(:post, 20, company: user.company) }
         let(:user_token) { create(:token, user: user) }
         let(:Authorization) { "Bearer #{user_token.token}" }
 

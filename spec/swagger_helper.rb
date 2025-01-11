@@ -71,12 +71,12 @@ RSpec.configure do |config|
               }
             }
           },
-          product_id: {
+          post_id: {
             type: 'integer',
             required: true,
             example: 1
           },
-          product: {
+          post: {
             type: 'object',
             properties: {
               name: { type: 'string', required: true },
@@ -84,9 +84,9 @@ RSpec.configure do |config|
               price: { type: 'number', required: true }
             },
             example: {
-              product: {
+              post: {
                 name: 'test',
-                description: 'product description',
+                description: 'post description',
                 price: 50.0
               }
             }

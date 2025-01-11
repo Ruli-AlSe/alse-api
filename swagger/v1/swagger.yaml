@@ -4,11 +4,11 @@ info:
   title: API V1
   version: v1
 paths:
-  "/v1/products":
+  "/v1/posts":
     post:
-      summary: Products create
+      summary: Posts create
       tags:
-      - Products
+      - Posts
       parameters: []
       security:
       - Bearer: []
@@ -21,29 +21,29 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/product"
-        description: JSON to create the product
+              "$ref": "#/components/schemas/post"
+        description: JSON to create the post
     get:
-      summary: Products list
+      summary: Posts list
       tags:
-      - Products
+      - Posts
       security:
       - Bearer: []
       responses:
         '200':
           description: successful
-  "/v1/products/{id}":
+  "/v1/posts/{id}":
     delete:
-      summary: Delete a product
+      summary: Delete a post
       tags:
-      - Products
+      - Posts
       parameters:
       - name: id
         in: path
         type: string
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
@@ -51,15 +51,15 @@ paths:
         '200':
           description: successful
     put:
-      summary: Products update
+      summary: Posts update
       tags:
-      - Products
+      - Posts
       parameters:
       - name: id
         in: path
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
@@ -70,20 +70,20 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/product"
-        description: JSON to update the product
-  "/v1/products/{product_id}/restore":
+              "$ref": "#/components/schemas/post"
+        description: JSON to update the post
+  "/v1/posts/{post_id}/restore":
     post:
-      summary: Restore a product
+      summary: Restore a post
       tags:
-      - Products
+      - Posts
       parameters:
-      - name: product_id
+      - name: post_id
         in: path
         type: string
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
@@ -173,11 +173,11 @@ components:
         user:
           email: test@example.com
           password: '12345678'
-    product_id:
+    post_id:
       type: integer
       required: true
       example: 1
-    product:
+    post:
       type: object
       properties:
         name:
@@ -190,9 +190,9 @@ components:
           type: number
           required: true
       example:
-        product:
+        post:
           name: test
-          description: product description
+          description: post description
           price: 50.0
 servers:
 - url: "{defaultHost}"
