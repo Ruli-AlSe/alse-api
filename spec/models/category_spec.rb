@@ -19,5 +19,9 @@ RSpec.describe Category, type: :model do
     it 'has many posts relationship' do
       should have_many(:posts)
     end
+
+    it 'belongs to company relationship' do
+      should belong_to(:company)
+    end
   end
 end
