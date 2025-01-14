@@ -76,6 +76,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          profile_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
           post: {
             type: 'object',
             properties: {
@@ -89,7 +94,34 @@ RSpec.configure do |config|
                 title: 'test',
                 content: 'post description',
                 image_url: 'image.url.com',
-                credits: '(page.link, page name, user name)'
+                credits: '(page.link,page name,user name)'
+              }
+            }
+          },
+          profile: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: false },
+              last_name: { type: 'string', required: false },
+              headliner: { type: 'string', required: false },
+              bio: { type: 'text', required: false },
+              city: { type: 'string', required: false },
+              state: { type: 'string', required: false },
+              country: { type: 'string', required: false },
+              phone_number: { type: 'string', required: false },
+              social_media: { type: 'string', required: false },
+            },
+            example: {
+              profile: {
+                name: 'user name updated',
+                last_name: 'user last name updated',
+                headliner: 'user headliner updated',
+                bio: 'user bio updated',
+                city: 'city updated',
+                state: 'state updated',
+                country: 'country updated',
+                phone_number: 'phone number updated',
+                social_media: 'linkedin.com,facebook.com,instagram.com,github.com,whatsapp.com,x.com',
               }
             }
           }

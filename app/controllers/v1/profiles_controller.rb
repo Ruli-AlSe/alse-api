@@ -6,6 +6,14 @@ module V1
     def show
     end
 
+    def update
+      if !profile_params.empty? && @profile.update(profile_params)
+        render json: @profile, status: :ok
+      else
+        render json: { errors: @profile.errors.messages }, status: :bad_request
+      end
+    end
+
     private
 
     def set_profile
@@ -14,6 +22,10 @@ module V1
       else
         head :unauthorized
       end
+    end
+
+    def profile_params
+      params.require(:profile).permit(:name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number, :social_media)
     end
   end
 end
