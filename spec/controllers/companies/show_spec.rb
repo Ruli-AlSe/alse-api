@@ -28,7 +28,7 @@ RSpec.describe V1::CompaniesController, type: :controller do
   context 'Get other user company by id' do
     before do
       request.headers.merge!(headers)
-      get(:show, format: :json, params: { id: rand(2..companies.size) })
+      get(:show, format: :json, params: { id: rand(4..companies.size) })
     end
 
     context 'response with status unauthorized' do

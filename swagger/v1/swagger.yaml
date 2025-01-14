@@ -96,6 +96,8 @@ paths:
       tags:
       - Users
       parameters: []
+      security:
+      - Bearer: []
       responses:
         '201':
           description: successful

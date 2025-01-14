@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
   describe 'Users register' do
+    let(:admin_user) { create(:admin) }
+    let(:bearer) { create(:token, user: admin_user) }
+    let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
     let(:user) {
       { email: Faker::Internet.email,
         age: rand(30..100),
@@ -11,6 +14,7 @@ RSpec.describe V1::UsersController, type: :controller do
 
     context 'user registered successfully' do
       before do
+        request.headers.merge!(headers)
         post(:create, format: :json, params: { user: user })
       end
 
@@ -42,6 +46,7 @@ RSpec.describe V1::UsersController, type: :controller do
     let(:bad_user) { { email: "test", password: '123', age: 21 } }
     context 'user not registered' do
       before do
+        request.headers.merge!(headers)
         post(:create, format: :json, params: { user: bad_user })
       end
 

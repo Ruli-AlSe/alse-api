@@ -1,15 +1,12 @@
 module V1
   class UsersController < ApplicationController
-    def create
-      @user = Owner.new(user_params)
+    before_action :authenticate_user, only: %i[create]
 
-      if @user.valid?
-        @user.save
-        @token = @user.tokens.create
-        # render json: @user, status: :created
-        render :show, status: :created
+    def create
+      if @current_user.admin?
+        create_owner
       else
-        render json: { errors: @user.errors.full_messages }, status: :bad_request
+        head :unauthorized
       end
     end
 
@@ -25,6 +22,19 @@ module V1
     end
 
     private
+
+    def create_owner
+      @user = Owner.new(user_params)
+
+      if @user.valid?
+        @user.save
+        @token = @user.tokens.create
+        # render json: @user, status: :created
+        render :show, status: :created
+      else
+        render json: { errors: @user.errors.full_messages }, status: :bad_request
+      end
+    end
 
     def login_params
       params.require(:user).permit(:email, :password)
