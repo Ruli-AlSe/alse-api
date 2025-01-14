@@ -10,6 +10,7 @@ Rails.application.routes.draw do
         post 'login', on: :collection
       end
       resources :companies, only: %i[show]
+      resources :profiles, only: %i[show update]
       resources :posts, only: %i[index create update destroy] do
         # "v1/posts/:post_id/restore"
         post 'restore'

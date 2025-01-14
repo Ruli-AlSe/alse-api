@@ -29,6 +29,7 @@ module V1
       if @user.valid?
         @user.save
         @token = @user.tokens.create
+        Profile.create(profilable: @user)
         # render json: @user, status: :created
         render :show, status: :created
       else

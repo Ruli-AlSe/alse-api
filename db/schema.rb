@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_14_031700) do
+ActiveRecord::Schema.define(version: 2025_01_14_082541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,10 +44,11 @@ ActiveRecord::Schema.define(version: 2025_01_14_031700) do
     t.string "country"
     t.string "phone_number"
     t.string "social_media"
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.string "profilable_type", null: false
+    t.bigint "profilable_id", null: false
+    t.index ["profilable_type", "profilable_id"], name: "index_profiles_on_profilable"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -71,7 +72,6 @@ ActiveRecord::Schema.define(version: 2025_01_14_031700) do
   end
 
   add_foreign_key "posts", "companies"
-  add_foreign_key "profiles", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "companies"
 end

@@ -9,6 +9,6 @@ FactoryBot.define do
     country { Faker::Address.country }
     phone_number { Faker::PhoneNumber.cell_phone }
     social_media { "#{Faker::Internet.url},#{Faker::Internet.url},#{Faker::Internet.url},#{Faker::Internet.url},#{Faker::PhoneNumber.cell_phone},#{Faker::Internet.url}" }
-    user
+    profilable { association :owner }
   end
 end

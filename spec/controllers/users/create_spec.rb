@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
-  describe 'Users register' do
+  describe 'Users sign up' do
     let(:admin_user) { create(:admin) }
     let(:bearer) { create(:token, user: admin_user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
@@ -12,7 +12,7 @@ RSpec.describe V1::UsersController, type: :controller do
         company_attributes: { name: Faker::Games::Zelda.game } }
     }
 
-    context 'user registered successfully' do
+    context 'user has been registered successfully' do
       before do
         request.headers.merge!(headers)
         post(:create, format: :json, params: { user: user })

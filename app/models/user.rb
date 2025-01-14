@@ -2,7 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   belongs_to :company
   has_many :tokens
-  has_one :profile
+  has_one :profile, as: :profilable, dependent: :destroy
 
   # nested attributes
   accepts_nested_attributes_for :company
