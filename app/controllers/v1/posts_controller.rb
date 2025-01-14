@@ -44,7 +44,7 @@ module V1
     private
 
     def post_params
-      params.require(:post).permit(:title, :content, :credits, :image_url)
+      params.require(:post).permit(:title, :content, :credits, :image_url, :slug, :category_id)
     end
 
     def set_company

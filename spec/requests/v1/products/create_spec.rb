@@ -11,6 +11,7 @@ RSpec.describe 'v1/posts', type: :request do
       security [Bearer: []]
       response(201, 'successful') do
         let(:user) { create(:owner) }
+        let(:category) { create(:category) }
         let(:user_token) { create(:token, user: user) }
         # we need to specify the Authorization header with the token
         let(:Authorization) { "Bearer #{user_token.token}" }
@@ -18,7 +19,9 @@ RSpec.describe 'v1/posts', type: :request do
           { post: { title: 'test',
                     content: 'test description',
                     credits: 'link.name, company name, user name',
-                     image_url: 'image.url' } }
+                    image_url: 'image.url',
+                    slug: 'test-slug',
+                    category_id: category.id } }
         }
         run_test!
       end

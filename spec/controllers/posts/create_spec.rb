@@ -3,13 +3,16 @@ require 'rails_helper'
 RSpec.describe V1::PostsController, type: :controller do
   describe 'Create post' do
     let(:user) { create(:owner) }
+    let(:category) { create(:category) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
     let(:post_info) {
       { title: Faker::Book.title,
         content: Faker::Lorem.sentence(word_count: 50),
         image_url: 'image.url',
-        credits: '(page.link.com, page name, user name)' }
+        slug: Faker::Book.title.parameterize,
+        credits: '(page.link.com, page name, user name)',
+        category_id: category.id  }
     }
 
     context 'Post registered successfully' do

@@ -7,7 +7,8 @@ class Post < ApplicationRecord
 
   # relations
   belongs_to :company
+  belongs_to :category
 
   # Validations
-  validates :title, :content, :image_url, :company_id, presence: true
+  validates :title, :content, :image_url, :slug, :company_id, presence: true
 end
