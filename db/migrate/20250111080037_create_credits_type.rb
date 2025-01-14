@@ -11,7 +11,7 @@ class CreateCreditsType < ActiveRecord::Migration[6.1]
     rename_column :posts, :description, :content
     remove_column :posts, :price, :float
     add_column :posts, :image_url, :string
-    add_column :posts, :credits, :credits
+    add_column :posts, :credits, :string
   end
 
   def down
@@ -19,7 +19,7 @@ class CreateCreditsType < ActiveRecord::Migration[6.1]
     rename_column :posts, :content, :description
     add_column :posts, :price, :float
     remove_column :posts, :image_url, :string
-    remove_column :posts, :credits, :credits
+    remove_column :posts, :credits, :string
     execute 'DROP TYPE credits'
   end
 end

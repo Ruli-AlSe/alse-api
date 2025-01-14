@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password
   belongs_to :company
   has_many :tokens
+  has_one :profile
 
   # nested attributes
   accepts_nested_attributes_for :company

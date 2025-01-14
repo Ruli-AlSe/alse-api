@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_11_080037) do
+ActiveRecord::Schema.define(version: 2025_01_14_031700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,34 @@ ActiveRecord::Schema.define(version: 2025_01_11_080037) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-# Could not dump table "posts" because of following StandardError
-#   Unknown type 'credits' for column 'credits'
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.bigint "company_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "deleted_at"
+    t.string "image_url"
+    t.string "credits"
+    t.index ["company_id"], name: "index_posts_on_company_id"
+    t.index ["deleted_at"], name: "index_posts_on_deleted_at"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "name"
+    t.string "last_name"
+    t.string "headliner"
+    t.text "bio"
+    t.string "city"
+    t.string "state"
+    t.string "country"
+    t.string "phone_number"
+    t.string "social_media"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
 
   create_table "tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -45,6 +71,7 @@ ActiveRecord::Schema.define(version: 2025_01_11_080037) do
   end
 
   add_foreign_key "posts", "companies"
+  add_foreign_key "profiles", "users"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "companies"
 end

@@ -51,5 +51,9 @@ RSpec.describe User, type: :model do
     it 'validate relation with tokens' do
       should have_many(:tokens)
     end
+
+    it 'validate relation with profile' do
+      should have_one(:profile)
+    end
   end
 end
