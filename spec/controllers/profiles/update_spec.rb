@@ -36,8 +36,7 @@ RSpec.describe V1::ProfilesController, type: :controller do
         request.headers.merge!(headers)
         put(:update, format: :json,
                      params: { id: user_profile.id, profile: { name: 'New testing name', 
-                                                               headliner: 'New testing headliner',
-                                                               skills_attributes: [skill] } })
+                                                               headliner: 'New testing headliner' } })
       end
 
       context 'response with status ok' do
@@ -51,7 +50,6 @@ RSpec.describe V1::ProfilesController, type: :controller do
           is_expected.to include(:id, :name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number,
                                  :social_media, :skills)
         }
-        it { expect(subject[:skills].first[:id]).to eq(skill.id) }
       end
     end
 
@@ -77,7 +75,8 @@ RSpec.describe V1::ProfilesController, type: :controller do
     context  'update profile without token' do
       before do
         put(:update, format: :json,
-                     params: { id: user_profile.id, profile: { name: 'New testing name', headliner: 'New testing headliner' } })
+                     params: { id: user_profile.id, profile: { name: 'New testing name',
+                                                               headliner: 'New testing headliner' } })
       end
 
       context 'response with status unauthorized' do

@@ -26,8 +26,7 @@ module V1
 
     def profile_params
       params.require(:profile)
-            .permit(:name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number, :social_media,
-                    skills_attributes: [:name, :icon_url, :level, :category_id])
+            .permit(:name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number, :social_media)
     end
   end
 end

@@ -147,20 +147,7 @@ RSpec.configure do |config|
               state: { type: 'string', required: false },
               country: { type: 'string', required: false },
               phone_number: { type: 'string', required: false },
-              social_media: { type: 'string', required: false },
-              skills_attributes: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    name: { type: 'string', required: true },
-                    icon_url: { type: 'string', required: false },
-                    level: { type: 'integer', required: false },
-                    category_id: { type: 'string', required: true },
-                    profile_id: { type: 'string', required: true }
-                  }
-                }
-              }
+              social_media: { type: 'string', required: false }
             },
             example: {
               profile: {
@@ -172,16 +159,7 @@ RSpec.configure do |config|
                 state: 'state updated',
                 country: 'country updated',
                 phone_number: 'phone number updated',
-                social_media: 'linkedin.com,facebook.com,instagram.com,github.com,whatsapp.com,x.com',
-                skills_attributes: [
-                  {
-                    name: 'skill name updated',
-                    icon_url: 'image.url.com/icon',
-                    level: 1,
-                    category_id: 9,
-                    profile_id: 3
-                  }
-                ]
+                social_media: 'linkedin.com,facebook.com,instagram.com,github.com,whatsapp.com,x.com'
               }
             }
           }

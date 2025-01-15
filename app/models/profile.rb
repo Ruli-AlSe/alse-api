@@ -1,9 +1,7 @@
 class Profile < ApplicationRecord
   belongs_to :profilable, polymorphic: true
   has_many :skills, dependent: :destroy
-
-  # nested attributes
-  accepts_nested_attributes_for :skills
+  has_many :educations, dependent: :destroy
 
   # custom types
   attribute :social_media, SocialMediaType.new
