@@ -10,7 +10,8 @@ RSpec.describe V1::CategoriesController, type: :controller do
     context 'Category updated successfully' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: category.id, category: { title: 'New testing name', slug: 'new-testing-name' } })
+        put(:update, format: :json,
+                     params: { id: category.id, category: { title: 'New testing name', slug: 'new-testing-name' } })
       end
 
       context 'response with status ok' do
@@ -29,7 +30,8 @@ RSpec.describe V1::CategoriesController, type: :controller do
     context 'category not found' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: 0, category: { title: 'New testing name', slug: 'new-testing-name' } })
+        put(:update, format: :json,
+                     params: { id: 0, category: { title: 'New testing name', slug: 'new-testing-name' } })
       end
 
       context 'response with status not found' do
@@ -57,7 +59,8 @@ RSpec.describe V1::CategoriesController, type: :controller do
 
     context 'put request without token' do
       before do
-        put(:update, format: :json, params: { id: category.id, category: { title: 'New testing name', slug: 'new-testing-name' } })
+        put(:update, format: :json,
+                     params: { id: category.id, category: { title: 'New testing name', slug: 'new-testing-name' } })
       end
 
       context 'response with status unauthorized' do
