@@ -27,5 +27,9 @@ RSpec.describe Category, type: :model do
     it 'belongs to company relationship' do
       should belong_to(:company)
     end
+
+    it 'has many skills relationship' do
+      should have_many(:skills)
+    end
   end
 end

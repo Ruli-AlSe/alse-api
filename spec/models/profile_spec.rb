@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Profile, type: :model do
-  describe 'Validations - ' do
-    it 'validate if there is a relation with user' do
+  describe 'Validations of the model' do
+    it 'there is a relation with user' do
       should belong_to(:profilable)
+    end
+
+    it 'has many skills relationship' do
+      should have_many(:skills)
     end
   end
 end

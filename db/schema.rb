@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_14_213813) do
-
+ActiveRecord::Schema.define(version: 2025_01_15_072437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +63,18 @@ ActiveRecord::Schema.define(version: 2025_01_14_213813) do
     t.index ["profilable_type", "profilable_id"], name: "index_profiles_on_profilable"
   end
 
+  create_table "skills", force: :cascade do |t|
+    t.string "name"
+    t.string "icon_url"
+    t.integer "level"
+    t.bigint "category_id", null: false
+    t.bigint "profile_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["category_id"], name: "index_skills_on_category_id"
+    t.index ["profile_id"], name: "index_skills_on_profile_id"
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "token"
@@ -85,6 +96,8 @@ ActiveRecord::Schema.define(version: 2025_01_14_213813) do
   end
 
   add_foreign_key "posts", "companies"
+  add_foreign_key "skills", "categories"
+  add_foreign_key "skills", "profiles"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "companies"
 end

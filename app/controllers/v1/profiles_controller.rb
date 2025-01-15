@@ -8,7 +8,7 @@ module V1
 
     def update
       if !profile_params.empty? && @profile.update(profile_params)
-        render json: @profile, status: :ok
+        render :show, status: :ok
       else
         render json: { errors: @profile.errors.messages }, status: :bad_request
       end
@@ -25,7 +25,9 @@ module V1
     end
 
     def profile_params
-      params.require(:profile).permit(:name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number, :social_media)
+      params.require(:profile)
+            .permit(:name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number, :social_media,
+                    skills_attributes: [:name, :icon_url, :level, :category_id])
     end
   end
 end
