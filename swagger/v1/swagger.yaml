@@ -4,6 +4,85 @@ info:
   title: API V1
   version: v1
 paths:
+  "/v1/categories":
+    post:
+      summary: Categories create
+      tags:
+      - Categories
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/category"
+        description: JSON to create the category
+    get:
+      summary: Categories list
+      tags:
+      - Categories
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+  "/v1/categories/{id}":
+    delete:
+      summary: Categories delete
+      tags:
+      - Categories
+      parameters:
+      - name: id
+        in: path
+        description: Category id
+        schema:
+          "$ref": "#/components/schemas/category_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Category Not Found
+    put:
+      summary: Categories update
+      tags:
+      - Categories
+      parameters:
+      - name: id
+        in: path
+        description: Category id
+        schema:
+          "$ref": "#/components/schemas/category_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Category Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/category"
+        description: JSON to update the category
   "/v1/posts":
     post:
       summary: Posts create
@@ -14,9 +93,9 @@ paths:
       - Bearer: []
       responses:
         '201':
-          description: successful
+          description: Successful
         '401':
-          description: not authorized
+          description: Not Authorized
       requestBody:
         content:
           application/json:
@@ -212,13 +291,17 @@ components:
           required: true
       example:
         user:
-          email: test@example.com
-          password: '12345678'
+          email: raul@example.com
+          password: 123abc
     post_id:
       type: integer
       required: true
       example: 1
     profile_id:
+      type: integer
+      required: true
+      example: 1
+    category_id:
       type: integer
       required: true
       example: 1
@@ -243,6 +326,23 @@ components:
           content: post description
           image_url: image.url.com
           credits: "(page.link,page name,user name)"
+    category:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        slug:
+          type: string
+          required: true
+          unique: true
+      example:
+        title: Category title
+        description: Category description
+        slug: category-title
     profile:
       type: object
       properties:

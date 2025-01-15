@@ -16,6 +16,10 @@ RSpec.describe Category, type: :model do
       should validate_presence_of(:slug)
     end
 
+    it 'validate if slug is unique' do
+      should validate_uniqueness_of(:slug).scoped_to(:company_id)
+    end
+
     it 'has many posts relationship' do
       should have_many(:posts)
     end

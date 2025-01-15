@@ -66,8 +66,8 @@ RSpec.configure do |config|
             },
             example: {
               user: {
-                email: 'test@example.com',
-                password: '12345678'
+                email: 'raul@example.com',
+                password: '123abc'
               }
             }
           },
@@ -77,6 +77,11 @@ RSpec.configure do |config|
             example: 1
           },
           profile_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          category_id: {
             type: 'integer',
             required: true,
             example: 1
@@ -96,6 +101,19 @@ RSpec.configure do |config|
                 image_url: 'image.url.com',
                 credits: '(page.link,page name,user name)'
               }
+            }
+          },
+          category: {
+            type: 'object',
+            properties: {
+              title: { type: 'string', required: true },
+              description: { type: 'string', required: true },
+              slug: { type: 'string', required: true, unique: true }
+            },
+            example: {
+              title: 'Category title',
+              description: 'Category description',
+              slug: 'category-title'
             }
           },
           profile: {
