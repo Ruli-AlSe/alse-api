@@ -86,6 +86,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          skill_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
           post: {
             type: 'object',
             properties: {
@@ -122,15 +127,13 @@ RSpec.configure do |config|
               name: { type: 'string', required: true },
               icon_url: { type: 'string', required: false },
               level: { type: 'integer', required: false },
-              category_id: { type: 'string', required: true },
-              profile_id: { type: 'string', required: true }
+              category_id: { type: 'string', required: true }
             },
             example: {
               name: 'Skill name',
               icon_url: 'image.url.com/icon',
               level: 1,
-              category_id: 9,
-              profile_id: 3
+              category_id: 9
             }
           },
           profile: {

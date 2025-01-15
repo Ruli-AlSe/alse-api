@@ -208,6 +208,72 @@ paths:
             schema:
               "$ref": "#/components/schemas/profile"
         description: JSON to update the profile
+  "/v1/skills":
+    post:
+      summary: Skill create
+      tags:
+      - Skills
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to create skill
+  "/v1/skills/{id}":
+    delete:
+      summary: Destroy skill
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+    put:
+      summary: Skill update
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to update skill
   "/v1/users":
     post:
       summary: Users register
@@ -305,6 +371,10 @@ components:
       type: integer
       required: true
       example: 1
+    skill_id:
+      type: integer
+      required: true
+      example: 1
     post:
       type: object
       properties:
@@ -358,15 +428,11 @@ components:
         category_id:
           type: string
           required: true
-        profile_id:
-          type: string
-          required: true
       example:
         name: Skill name
         icon_url: image.url.com/icon
         level: 1
         category_id: 9
-        profile_id: 3
     profile:
       type: object
       properties:
