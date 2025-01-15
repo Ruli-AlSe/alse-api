@@ -19,8 +19,8 @@ RSpec.describe 'v1/posts', type: :request do
         let(:Authorization) { "Bearer #{user_token.token}" }
         let(:payload) {
           { post: { name: 'post updated',
-                       description: 'post description updated',
-                       price: 1000 } }
+                    description: 'post description updated',
+                    price: 1000 } }
         }
 
         run_test!

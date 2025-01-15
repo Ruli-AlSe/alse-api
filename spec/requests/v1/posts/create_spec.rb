@@ -9,7 +9,7 @@ RSpec.describe 'v1/posts', type: :request do
                 schema: { '$ref' => '#/components/schemas/post' }
       # security to specify that we need to be logged in to create a post
       security [Bearer: []]
-      response(201, 'successful') do
+      response(201, 'Successful') do
         let(:user) { create(:owner) }
         let(:category) { create(:category) }
         let(:user_token) { create(:token, user: user) }
@@ -26,12 +26,16 @@ RSpec.describe 'v1/posts', type: :request do
         run_test!
       end
 
-      response(401, 'not authorized') do
+      response(401, 'Not Authorized') do
+        let(:category) { create(:category) }
         let(:Authorization) { 'Bearer' }
         let(:payload) {
-          { post: { name: 'test',
-                       description: 'test description',
-                       price: 50 } }
+          { post: { title: 'test',
+                    content: 'test description',
+                    credits: 'link.name, company name, user name',
+                    image_url: 'image.url',
+                    slug: 'test-slug',
+                    category_id: category.id } }
         }
 
         run_test!
