@@ -1,7 +1,6 @@
 require 'swagger_helper'
 
 RSpec.describe 'v1/users', type: :request do
-
   path '/v1/users' do
     post('Users register') do
       # tag to display in swagger
@@ -12,12 +11,16 @@ RSpec.describe 'v1/users', type: :request do
       parameter name: 'payload', in: :body, description: 'JSON to create the user',
                 schema: { '$ref' => '#/components/schemas/user' }
 
+      security [Bearer: []]
       response(201, 'successful') do
+        let(:user_admin) { create(:admin) }
+        let(:user_token) { create(:token, user: user_admin) }
+        let(:Authorization) { "Bearer #{user_token.token}" }
         let(:payload) {
           { user: { email: 'test@example.com',
                     password: '12345678',
                     age: 31,
-                    store_attributes: { name: 'test' } } }
+                    company_attributes: { name: 'test' } } }
         }
 
         run_test!

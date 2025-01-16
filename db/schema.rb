@@ -10,50 +10,139 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_09_074502) do
+ActiveRecord::Schema.define(version: 2025_01_16_082035) do
 
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.float "price"
-    t.bigint "store_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.datetime "deleted_at"
-    t.index ["deleted_at"], name: "index_products_on_deleted_at"
-    t.index ["store_id"], name: "index_products_on_store_id"
+  create_table 'categories', force: :cascade do |t|
+    t.string 'title'
+    t.text 'description'
+    t.string 'slug'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'company_id'
+    t.index ['company_id'], name: 'index_categories_on_company_id'
+    t.index ['slug'], name: 'index_categories_on_slug', unique: true
   end
 
-  create_table "stores", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'companies', force: :cascade do |t|
+    t.string 'name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "tokens", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.string "token"
-    t.datetime "expires_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_tokens_on_user_id"
+  create_table 'educations', force: :cascade do |t|
+    t.string 'school_name', null: false
+    t.string 'career', null: false
+    t.date 'start_date'
+    t.date 'end_date'
+    t.string 'location'
+    t.string 'professional_license'
+    t.boolean 'is_course', default: false
+    t.string 'relevant_topics', default: [], array: true
+    t.bigint 'profile_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['profile_id'], name: 'index_educations_on_profile_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "email"
-    t.integer "age"
-    t.string "password_digest"
-    t.string "type"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.bigint "store_id", null: false
-    t.index ["store_id"], name: "index_users_on_store_id"
+  create_table 'jobs', force: :cascade do |t|
+    t.string 'title', null: false
+    t.string 'location', null: false
+    t.integer 'job_type', null: false
+    t.string 'company_name', null: false
+    t.date 'start_date'
+    t.date 'end_date'
+    t.string 'activities', default: [], array: true
+    t.bigint 'profile_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['profile_id'], name: 'index_jobs_on_profile_id'
   end
 
-  add_foreign_key "products", "stores"
-  add_foreign_key "tokens", "users"
-  add_foreign_key "users", "stores"
+  create_table 'posts', force: :cascade do |t|
+    t.string 'title'
+    t.string 'content'
+    t.bigint 'company_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.datetime 'deleted_at'
+    t.string 'image_url'
+    t.string 'credits'
+    t.integer 'category_id'
+    t.string 'slug'
+    t.index ['company_id'], name: 'index_posts_on_company_id'
+    t.index ['deleted_at'], name: 'index_posts_on_deleted_at'
+  end
+
+  create_table 'profiles', force: :cascade do |t|
+    t.string 'name'
+    t.string 'last_name'
+    t.string 'headliner'
+    t.text 'bio'
+    t.string 'city'
+    t.string 'state'
+    t.string 'country'
+    t.string 'phone_number'
+    t.string 'social_media'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.string 'profilable_type', null: false
+    t.bigint 'profilable_id', null: false
+    t.index ['profilable_type', 'profilable_id'], name: 'index_profiles_on_profilable'
+  end
+
+  create_table 'projects', force: :cascade do |t|
+    t.string 'name', null: false
+    t.text 'description', null: false
+    t.string 'company_name', null: false
+    t.string 'live_url'
+    t.string 'repository_url', null: false
+    t.bigint 'company_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['company_id'], name: 'index_projects_on_company_id'
+  end
+
+  create_table 'skills', force: :cascade do |t|
+    t.string 'name'
+    t.string 'icon_url'
+    t.integer 'level'
+    t.bigint 'category_id', null: false
+    t.bigint 'profile_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['category_id'], name: 'index_skills_on_category_id'
+    t.index ['profile_id'], name: 'index_skills_on_profile_id'
+  end
+
+  create_table 'tokens', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.string 'token'
+    t.datetime 'expires_at'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['user_id'], name: 'index_tokens_on_user_id'
+  end
+
+  create_table 'users', force: :cascade do |t|
+    t.string 'email'
+    t.integer 'age'
+    t.string 'password_digest'
+    t.string 'type'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.bigint 'company_id', null: false
+    t.index ['company_id'], name: 'index_users_on_company_id'
+  end
+
+  add_foreign_key 'educations', 'profiles'
+  add_foreign_key 'jobs', 'profiles'
+  add_foreign_key 'posts', 'companies'
+  add_foreign_key 'projects', 'companies'
+  add_foreign_key 'skills', 'categories'
+  add_foreign_key 'skills', 'profiles'
+  add_foreign_key 'tokens', 'users'
+  add_foreign_key 'users', 'companies'
 end

@@ -1,16 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
-  describe 'Users register' do
+  describe 'Users sign up' do
+    let(:admin_user) { create(:admin) }
+    let(:bearer) { create(:token, user: admin_user) }
+    let(:headers) { { Authorization: "Bearer #{bearer.token}" } }
     let(:user) {
       { email: Faker::Internet.email,
         age: rand(30..100),
         password: Faker::Internet.password(min_length: 10, max_length: 20),
-       store_attributes: { name: Faker::Games::Zelda.game } }
+        company_attributes: { name: Faker::Games::Zelda.game } }
     }
 
-    context 'user registered successfully' do
+    context 'user has been registered successfully' do
       before do
+        request.headers.merge!(headers)
         post(:create, format: :json, params: { user: user })
       end
 
@@ -23,11 +27,11 @@ RSpec.describe V1::UsersController, type: :controller do
       context 'response with correct user data' do
         subject { payload_test }
 
-        it { is_expected.to include(:id, :email, :age, :store, :token) }
+        it { is_expected.to include(:id, :email, :age, :company, :token) }
       end
 
-      context 'response with correct store data' do
-        subject { payload_test[:store] }
+      context 'response with correct company data' do
+        subject { payload_test[:company] }
 
         it { is_expected.to include(:id, :name, :created_at, :updated_at) }
       end
@@ -42,6 +46,7 @@ RSpec.describe V1::UsersController, type: :controller do
     let(:bad_user) { { email: "test", password: '123', age: 21 } }
     context 'user not registered' do
       before do
+        request.headers.merge!(headers)
         post(:create, format: :json, params: { user: bad_user })
       end
 

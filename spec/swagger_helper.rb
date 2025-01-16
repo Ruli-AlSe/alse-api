@@ -40,7 +40,7 @@ RSpec.configure do |config|
               email: { type: 'string', required: true },
               password: { type: 'string', required: true },
               age: { type: 'integer', required: true },
-              store_attributes: {
+              company_attributes: {
                 type: 'object',
                 properties: {
                   name: { type: 'string', required: true }
@@ -52,7 +52,7 @@ RSpec.configure do |config|
                 email: 'test@example.com',
                 password: '12345678',
                 age: 31,
-                store_attributes: {
+                company_attributes: {
                   name: 'test'
                 }
               }
@@ -66,28 +66,176 @@ RSpec.configure do |config|
             },
             example: {
               user: {
-                email: 'test@example.com',
-                password: '12345678'
+                email: 'raul@example.com',
+                password: '123abc'
               }
             }
           },
-          product_id: {
+          post_id: {
             type: 'integer',
             required: true,
             example: 1
           },
-          product: {
+          profile_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          category_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          skill_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          education_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          job_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          project_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
+          post: {
+            type: 'object',
+            properties: {
+              title: { type: 'string', required: true },
+              content: { type: 'string', required: true },
+              image_url: { type: 'string', required: true },
+              credits: { type: 'string', required: false }
+            },
+            example: {
+              post: {
+                title: 'test',
+                content: 'post description',
+                image_url: 'image.url.com',
+                credits: '(page.link,page name,user name)'
+              }
+            }
+          },
+          category: {
+            type: 'object',
+            properties: {
+              title: { type: 'string', required: true },
+              description: { type: 'string', required: true },
+              slug: { type: 'string', required: true, unique: true }
+            },
+            example: {
+              title: 'Category title',
+              description: 'Category description',
+              slug: 'category-title'
+            }
+          },
+          skill: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: true },
+              icon_url: { type: 'string', required: false },
+              level: { type: 'integer', required: false },
+              category_id: { type: 'string', required: true }
+            },
+            example: {
+              name: 'Skill name',
+              icon_url: 'image.url.com/icon',
+              level: 1,
+              category_id: 9
+            }
+          },
+          education: {
+            type: 'object',
+            properties: {
+              school_name: { type: 'string', required: true },
+              career: { type: 'string', required: true },
+              start_date: { type: 'date', required: false },
+              end_date: { type: 'date', required: false },
+              location: { type: 'string', required: false },
+              professional_license: { type: 'string', required: false },
+              is_course: { type: 'string', required: false, default: false },
+              relevant_topics: { type: 'string[]', required: false, default: [] }
+            },
+            example: {
+              school_name: 'School name',
+              career: 'Career name',
+              start_date: '2015-11-21',
+              end_date: '2019-06-15',
+              location: 'University location',
+              professional_license: 'sdfd-4354-34543-fgfdg',
+              is_course: true,
+              relevant_topics: ['web development', 'ux/ui design']
+            }
+          },
+          job: {
+            type: 'object',
+            properties: {
+              title: { type: 'string', required: true },
+              location: { type: 'string', required: true },
+              job_type: { type: 'integer', required: true },
+              company_name: { type: 'string', required: true },
+              start_date: { type: 'date', required: false },
+              end_date: { type: 'date', required: false },
+              activities: { type: 'string[]', required: false, default: [] }
+            },
+            example: {
+              title: 'Job title',
+              location: 'city, state, country',
+              job_type: 2,
+              company_name: 'Company name',
+              start_date: '2015-11-21',
+              end_date: '2020-11-21',
+              activities: ['Design new web application', 'TDD pattern']
+            }
+          },
+          project: {
             type: 'object',
             properties: {
               name: { type: 'string', required: true },
               description: { type: 'string', required: true },
-              price: { type: 'number', required: true }
+              company_name: { type: 'integer', required: true },
+              live_url: { type: 'string', required: false },
+              repository_url: { type: 'string', required: true }
             },
             example: {
-              product: {
-                name: 'test',
-                description: 'product description',
-                price: 50.0
+              name: 'project name',
+              description: 'project large description',
+              company_name: 'company name',
+              live_url: 'www.link.url',
+              repository_url: 'www.myrepo.com'
+            }
+          },
+          profile: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: false },
+              last_name: { type: 'string', required: false },
+              headliner: { type: 'string', required: false },
+              bio: { type: 'text', required: false },
+              city: { type: 'string', required: false },
+              state: { type: 'string', required: false },
+              country: { type: 'string', required: false },
+              phone_number: { type: 'string', required: false },
+              social_media: { type: 'string', required: false }
+            },
+            example: {
+              profile: {
+                name: 'user name updated',
+                last_name: 'user last name updated',
+                headliner: 'user headliner updated',
+                bio: 'user bio updated',
+                city: 'city updated',
+                state: 'state updated',
+                country: 'country updated',
+                phone_number: 'phone number updated',
+                social_media: 'linkedin.com,facebook.com,instagram.com,github.com,whatsapp.com,x.com'
               }
             }
           }

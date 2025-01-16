@@ -4,46 +4,257 @@ info:
   title: API V1
   version: v1
 paths:
-  "/v1/products":
+  "/v1/categories":
     post:
-      summary: Products create
+      summary: Categories create
       tags:
-      - Products
+      - Categories
       parameters: []
       security:
       - Bearer: []
       responses:
         '201':
-          description: successful
+          description: Successful
+        '400':
+          description: Bad Request
         '401':
-          description: not authorized
+          description: Not Authorized
       requestBody:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/product"
-        description: JSON to create the product
+              "$ref": "#/components/schemas/category"
+        description: JSON to create the category
     get:
-      summary: Products list
+      summary: Categories list
       tags:
-      - Products
+      - Categories
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+  "/v1/categories/{id}":
+    delete:
+      summary: Categories delete
+      tags:
+      - Categories
+      parameters:
+      - name: id
+        in: path
+        description: Category id
+        schema:
+          "$ref": "#/components/schemas/category_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Category Not Found
+    put:
+      summary: Categories update
+      tags:
+      - Categories
+      parameters:
+      - name: id
+        in: path
+        description: Category id
+        schema:
+          "$ref": "#/components/schemas/category_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Category Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/category"
+        description: JSON to update the category
+  "/v1/educations":
+    post:
+      summary: Create education
+      tags:
+      - Educations
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/education"
+        description: JSON to create education
+  "/v1/educations/{id}":
+    delete:
+      summary: Destroy education
+      tags:
+      - Educations
+      parameters:
+      - name: id
+        in: path
+        description: Education id
+        schema:
+          "$ref": "#/components/schemas/education_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+    put:
+      summary: Education update
+      tags:
+      - Educations
+      parameters:
+      - name: id
+        in: path
+        description: Education id
+        schema:
+          "$ref": "#/components/schemas/education_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/education"
+        description: JSON to update education
+  "/v1/jobs":
+    post:
+      summary: Create job
+      tags:
+      - Jobs
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/job"
+        description: JSON to create job
+  "/v1/jobs/{id}":
+    delete:
+      summary: Destroy job
+      tags:
+      - Jobs
+      parameters:
+      - name: id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect job id
+    put:
+      summary: Update job
+      tags:
+      - Jobs
+      parameters:
+      - name: id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/job"
+        description: JSON to create job
+  "/v1/posts":
+    post:
+      summary: Posts create
+      tags:
+      - Posts
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/post"
+        description: JSON to create the post
+    get:
+      summary: Posts list
+      tags:
+      - Posts
       security:
       - Bearer: []
       responses:
         '200':
           description: successful
-  "/v1/products/{id}":
+  "/v1/posts/{id}":
     delete:
-      summary: Delete a product
+      summary: Delete a post
       tags:
-      - Products
+      - Posts
       parameters:
       - name: id
         in: path
         type: string
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
@@ -51,15 +262,15 @@ paths:
         '200':
           description: successful
     put:
-      summary: Products update
+      summary: Posts update
       tags:
-      - Products
+      - Posts
       parameters:
       - name: id
         in: path
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
@@ -70,32 +281,216 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/product"
-        description: JSON to update the product
-  "/v1/products/{product_id}/restore":
+              "$ref": "#/components/schemas/post"
+        description: JSON to update the post
+  "/v1/posts/{post_id}/restore":
     post:
-      summary: Restore a product
+      summary: Restore a post
       tags:
-      - Products
+      - Posts
       parameters:
-      - name: product_id
+      - name: post_id
         in: path
         type: string
-        description: Product id
+        description: Post id
         schema:
-          "$ref": "#/components/schemas/product_id"
+          "$ref": "#/components/schemas/post_id"
         required: true
       security:
       - Bearer: []
       responses:
         '200':
           description: successful
+  "/v1/profiles/{id}":
+    get:
+      summary: Profiles show
+      tags:
+      - Profiles
+      parameters:
+      - name: id
+        in: path
+        description: profile id
+        schema:
+          "$ref": "#/components/schemas/profile_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+    put:
+      summary: Profiles update
+      tags:
+      - Profiles
+      parameters:
+      - name: id
+        in: path
+        description: profile id
+        schema:
+          "$ref": "#/components/schemas/profile_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: successful
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/profile"
+        description: JSON to update the profile
+  "/v1/projects":
+    post:
+      summary: Create project
+      tags:
+      - Projects
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+        description: JSON to create project
+    get:
+      summary: Projects list
+      tags:
+      - Projects
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+  "/v1/projects/{id}":
+    delete:
+      summary: Destroy project
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect project id
+    put:
+      summary: Project update
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect project id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+        description: JSON to update project
+  "/v1/skills":
+    post:
+      summary: Skill create
+      tags:
+      - Skills
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to create skill
+  "/v1/skills/{id}":
+    delete:
+      summary: Destroy skill
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+    put:
+      summary: Skill update
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to update skill
   "/v1/users":
     post:
       summary: Users register
       tags:
       - Users
       parameters: []
+      security:
+      - Bearer: []
       responses:
         '201':
           description: successful
@@ -147,7 +542,7 @@ components:
         age:
           type: integer
           required: true
-        store_attributes:
+        company_attributes:
           type: object
           properties:
             name:
@@ -158,7 +553,7 @@ components:
           email: test@example.com
           password: '12345678'
           age: 31
-          store_attributes:
+          company_attributes:
             name: test
     login_user:
       type: object
@@ -171,13 +566,170 @@ components:
           required: true
       example:
         user:
-          email: test@example.com
-          password: '12345678'
-    product_id:
+          email: raul@example.com
+          password: 123abc
+    post_id:
       type: integer
       required: true
       example: 1
-    product:
+    profile_id:
+      type: integer
+      required: true
+      example: 1
+    category_id:
+      type: integer
+      required: true
+      example: 1
+    skill_id:
+      type: integer
+      required: true
+      example: 1
+    education_id:
+      type: integer
+      required: true
+      example: 1
+    job_id:
+      type: integer
+      required: true
+      example: 1
+    project_id:
+      type: integer
+      required: true
+      example: 1
+    post:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        content:
+          type: string
+          required: true
+        image_url:
+          type: string
+          required: true
+        credits:
+          type: string
+          required: false
+      example:
+        post:
+          title: test
+          content: post description
+          image_url: image.url.com
+          credits: "(page.link,page name,user name)"
+    category:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        slug:
+          type: string
+          required: true
+          unique: true
+      example:
+        title: Category title
+        description: Category description
+        slug: category-title
+    skill:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        icon_url:
+          type: string
+          required: false
+        level:
+          type: integer
+          required: false
+        category_id:
+          type: string
+          required: true
+      example:
+        name: Skill name
+        icon_url: image.url.com/icon
+        level: 1
+        category_id: 9
+    education:
+      type: object
+      properties:
+        school_name:
+          type: string
+          required: true
+        career:
+          type: string
+          required: true
+        start_date:
+          type: date
+          required: false
+        end_date:
+          type: date
+          required: false
+        location:
+          type: string
+          required: false
+        professional_license:
+          type: string
+          required: false
+        is_course:
+          type: string
+          required: false
+          default: false
+        relevant_topics:
+          type: string[]
+          required: false
+          default: []
+      example:
+        school_name: School name
+        career: Career name
+        start_date: '2015-11-21'
+        end_date: '2019-06-15'
+        location: University location
+        professional_license: sdfd-4354-34543-fgfdg
+        is_course: true
+        relevant_topics:
+        - web development
+        - ux/ui design
+    job:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        location:
+          type: string
+          required: true
+        job_type:
+          type: integer
+          required: true
+        company_name:
+          type: string
+          required: true
+        start_date:
+          type: date
+          required: false
+        end_date:
+          type: date
+          required: false
+        activities:
+          type: string[]
+          required: false
+          default: []
+      example:
+        title: Job title
+        location: city, state, country
+        job_type: 2
+        company_name: Company name
+        start_date: '2015-11-21'
+        end_date: '2020-11-21'
+        activities:
+        - Design new web application
+        - TDD pattern
+    project:
       type: object
       properties:
         name:
@@ -186,14 +738,62 @@ components:
         description:
           type: string
           required: true
-        price:
-          type: number
+        company_name:
+          type: integer
+          required: true
+        live_url:
+          type: string
+          required: false
+        repository_url:
+          type: string
           required: true
       example:
-        product:
-          name: test
-          description: product description
-          price: 50.0
+        name: project name
+        description: project large description
+        company_name: company name
+        live_url: www.link.url
+        repository_url: www.myrepo.com
+    profile:
+      type: object
+      properties:
+        name:
+          type: string
+          required: false
+        last_name:
+          type: string
+          required: false
+        headliner:
+          type: string
+          required: false
+        bio:
+          type: text
+          required: false
+        city:
+          type: string
+          required: false
+        state:
+          type: string
+          required: false
+        country:
+          type: string
+          required: false
+        phone_number:
+          type: string
+          required: false
+        social_media:
+          type: string
+          required: false
+      example:
+        profile:
+          name: user name updated
+          last_name: user last name updated
+          headliner: user headliner updated
+          bio: user bio updated
+          city: city updated
+          state: state updated
+          country: country updated
+          phone_number: phone number updated
+          social_media: linkedin.com,facebook.com,instagram.com,github.com,whatsapp.com,x.com
 servers:
 - url: "{defaultHost}"
   variables:

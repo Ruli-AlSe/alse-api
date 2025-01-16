@@ -9,9 +9,15 @@ Rails.application.routes.draw do
         # "v1/users/login"
         post 'login', on: :collection
       end
-      resources :stores, only: %i[show]
-      resources :products, only: %i[index create update destroy] do
-        # "v1/products/:product_id/restore"
+      resources :companies, only: %i[show]
+      resources :profiles, only: %i[show update]
+      resources :categories, only: %i[index create update destroy]
+      resources :skills, only: %i[create update destroy]
+      resources :educations, only: %i[create update destroy]
+      resources :jobs, only: %i[create update destroy]
+      resources :projects, only: %i[index create update destroy]
+      resources :posts, only: %i[index create update destroy] do
+        # "v1/posts/:post_id/restore"
         post 'restore'
       end
     end
