@@ -9,5 +9,9 @@ RSpec.describe Profile, type: :model do
     it 'has many skills relationship' do
       should have_many(:skills)
     end
+
+    it 'has many educations relationship' do
+      should have_many(:educations)
+    end
   end
 end
