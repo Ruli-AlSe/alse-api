@@ -8,7 +8,7 @@ RSpec.describe 'v1/educations', type: :request do
       parameter name: 'payload', in: :body, description: 'JSON to update education',
                 schema: { '$ref' => '#/components/schemas/education' }
       parameter name: 'id', in: :path, description: 'Education id',
-                schema: { '$ref' => '#/components/schemas/education_id'}
+                schema: { '$ref' => '#/components/schemas/education_id' }
       security [Bearer: []]
 
       response(200, 'Successful') do

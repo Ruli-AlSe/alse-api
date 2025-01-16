@@ -1,44 +1,45 @@
 require 'rails_helper'
 
-RSpec.describe V1::EducationsController, type: :controller do
-  describe 'Update education' do
+RSpec.describe V1::JobsController, type: :controller do
+  describe 'Update job' do
     let(:user) { create(:owner) }
     let!(:user_profile) { create(:profile, profilable: user) }
-    let!(:education) { create(:education, profile: user_profile) }
+    let(:job) { create(:job, profile: user_profile) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
-    let(:education_info) {
-      { school_name: 'University name updated',
-        career: 'Career updated',
-        relevant_topics: ['Web development', 'Computer vision'] }
+    let(:job_info) {
+      { title: 'title updated',
+        location: 'location updated',
+        activities: Array.new(2, Faker::Quote.famous_last_words) }
     }
 
-    context 'successful response' do
+    context 'Job updated successfully' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: education.id, education: education_info })
+        put(:update, format: :json, params: { id: job.id, job: job_info })
       end
 
-      context 'with status ok' do
+      context 'response with status ok' do
         subject { response }
         it { is_expected.to have_http_status(:ok) }
       end
 
-      context 'with correct education structure' do
+      context 'response with correct job structure' do
         subject { payload_test }
         it {
-          is_expected.to include(:id, :school_name, :career, :start_date, :end_date, :location,
-                                 :professional_license, :is_course, :relevant_topics, :created_at, :updated_at)
+          is_expected.to include(:id, :title, :location, :job_type, :company_name, :start_date,
+                                 :end_date, :activities, :profile_id, :created_at, :updated_at)
         }
-        it { expect(subject[:school_name]).to eq(education_info[:school_name]) }
+        it { expect(subject[:title]).to eq(job_info[:title]) }
+        it { expect(subject[:activities].count).to eq(job_info[:activities].count) }
       end
     end
 
     context 'unsuccessful response' do
       before do
-        education_info[:school_name] = ''
+        job_info[:title] = ''
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: education.id, education: education_info })
+        put(:update, format: :json, params: { id: job.id, job: job_info })
       end
 
       context 'with status bad_request' do
@@ -52,10 +53,10 @@ RSpec.describe V1::EducationsController, type: :controller do
       end
     end
 
-    context 'unsuccessful response due to incorrect education id' do
+    context 'unsuccessful response due to incorrect job id' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: 0, education: education_info })
+        put(:update, format: :json, params: { id: 0, job: job_info })
       end
 
       context 'with status not_found' do
@@ -66,7 +67,7 @@ RSpec.describe V1::EducationsController, type: :controller do
 
     context 'send request without token' do
       before do
-        put(:update, format: :json, params: { id: education.id, education: education_info })
+        put(:update, format: :json, params: { id: job.id, job: job_info })
       end
 
       context 'with status unauthorized' do

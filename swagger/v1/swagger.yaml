@@ -112,7 +112,7 @@ paths:
         in: path
         description: Education id
         schema:
-          "$ref": "#/components/schemas/skill_id"
+          "$ref": "#/components/schemas/education_id"
         required: true
       security:
       - Bearer: []
@@ -149,6 +149,72 @@ paths:
             schema:
               "$ref": "#/components/schemas/education"
         description: JSON to update education
+  "/v1/jobs":
+    post:
+      summary: Create job
+      tags:
+      - Jobs
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/job"
+        description: JSON to create job
+  "/v1/jobs/{id}":
+    delete:
+      summary: Destroy job
+      tags:
+      - Jobs
+      parameters:
+      - name: id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect job id
+    put:
+      summary: Update job
+      tags:
+      - Jobs
+      parameters:
+      - name: id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/job"
+        description: JSON to create job
   "/v1/posts":
     post:
       summary: Posts create
@@ -445,6 +511,10 @@ components:
       type: integer
       required: true
       example: 1
+    job_id:
+      type: integer
+      required: true
+      example: 1
     post:
       type: object
       properties:
@@ -543,6 +613,41 @@ components:
         relevant_topics:
         - web development
         - ux/ui design
+    job:
+      type: object
+      properties:
+        title:
+          type: string
+          required: true
+        location:
+          type: string
+          required: true
+        job_type:
+          type: integer
+          required: true
+        company_name:
+          type: string
+          required: true
+        start_date:
+          type: date
+          required: false
+        end_date:
+          type: date
+          required: false
+        activities:
+          type: string[]
+          required: false
+          default: []
+      example:
+        title: Job title
+        location: city, state, country
+        job_type: 2
+        company_name: Company name
+        start_date: '2015-11-21'
+        end_date: '2020-11-21'
+        activities:
+        - Design new web application
+        - TDD pattern
     profile:
       type: object
       properties:

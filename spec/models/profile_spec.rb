@@ -13,5 +13,9 @@ RSpec.describe Profile, type: :model do
     it 'has many educations relationship' do
       should have_many(:educations)
     end
+
+    it 'has many jobs relationship' do
+      should have_many(:jobs)
+    end
   end
 end

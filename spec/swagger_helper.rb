@@ -96,6 +96,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          job_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
           post: {
             type: 'object',
             properties: {
@@ -162,6 +167,27 @@ RSpec.configure do |config|
               professional_license: 'sdfd-4354-34543-fgfdg',
               is_course: true,
               relevant_topics: ['web development', 'ux/ui design']
+            }
+          },
+          job: {
+            type: 'object',
+            properties: {
+              title: { type: 'string', required: true },
+              location: { type: 'string', required: true },
+              job_type: { type: 'integer', required: true },
+              company_name: { type: 'string', required: true },
+              start_date: { type: 'date', required: false },
+              end_date: { type: 'date', required: false },
+              activities: { type: 'string[]', required: false, default: [] }
+            },
+            example: {
+              title: 'Job title',
+              location: 'city, state, country',
+              job_type: 2,
+              company_name: 'Company name',
+              start_date: '2015-11-21',
+              end_date: '2020-11-21',
+              activities: ['Design new web application', 'TDD pattern']
             }
           },
           profile: {
