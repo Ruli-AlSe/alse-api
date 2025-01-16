@@ -340,6 +340,83 @@ paths:
             schema:
               "$ref": "#/components/schemas/profile"
         description: JSON to update the profile
+  "/v1/projects":
+    post:
+      summary: Create project
+      tags:
+      - Projects
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+        description: JSON to create project
+    get:
+      summary: Projects list
+      tags:
+      - Projects
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+  "/v1/projects/{id}":
+    delete:
+      summary: Destroy project
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect project id
+    put:
+      summary: Project update
+      tags:
+      - Projects
+      parameters:
+      - name: id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect project id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/project"
+        description: JSON to update project
   "/v1/skills":
     post:
       summary: Skill create
@@ -515,6 +592,10 @@ components:
       type: integer
       required: true
       example: 1
+    project_id:
+      type: integer
+      required: true
+      example: 1
     post:
       type: object
       properties:
@@ -648,6 +729,30 @@ components:
         activities:
         - Design new web application
         - TDD pattern
+    project:
+      type: object
+      properties:
+        name:
+          type: string
+          required: true
+        description:
+          type: string
+          required: true
+        company_name:
+          type: integer
+          required: true
+        live_url:
+          type: string
+          required: false
+        repository_url:
+          type: string
+          required: true
+      example:
+        name: project name
+        description: project large description
+        company_name: company name
+        live_url: www.link.url
+        repository_url: www.myrepo.com
     profile:
       type: object
       properties:

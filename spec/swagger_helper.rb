@@ -101,6 +101,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          project_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
           post: {
             type: 'object',
             properties: {
@@ -188,6 +193,23 @@ RSpec.configure do |config|
               start_date: '2015-11-21',
               end_date: '2020-11-21',
               activities: ['Design new web application', 'TDD pattern']
+            }
+          },
+          project: {
+            type: 'object',
+            properties: {
+              name: { type: 'string', required: true },
+              description: { type: 'string', required: true },
+              company_name: { type: 'integer', required: true },
+              live_url: { type: 'string', required: false },
+              repository_url: { type: 'string', required: true }
+            },
+            example: {
+              name: 'project name',
+              description: 'project large description',
+              company_name: 'company name',
+              live_url: 'www.link.url',
+              repository_url: 'www.myrepo.com'
             }
           },
           profile: {

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       resources :skills, only: %i[create update destroy]
       resources :educations, only: %i[create update destroy]
       resources :jobs, only: %i[create update destroy]
+      resources :projects, only: %i[index create update destroy]
       resources :posts, only: %i[index create update destroy] do
         # "v1/posts/:post_id/restore"
         post 'restore'
