@@ -6,11 +6,11 @@ RSpec.describe Post, type: :model do
       should validate_presence_of(:company_id)
     end
 
-    it 'name is present' do
+    it 'title is present' do
       should validate_presence_of(:title)
     end
 
-    it 'description is present' do
+    it 'contet is present' do
       should validate_presence_of(:content)
     end
 
@@ -22,11 +22,11 @@ RSpec.describe Post, type: :model do
       should validate_presence_of(:slug)
     end
 
-    it 'belogs to a company' do
+    it 'belongs to a company' do
       should belong_to(:company)
     end
 
-    it 'belogs to a categpory' do
+    it 'belongs to a categpory' do
       should belong_to(:category)
     end
   end
