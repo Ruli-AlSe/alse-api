@@ -83,6 +83,72 @@ paths:
             schema:
               "$ref": "#/components/schemas/category"
         description: JSON to update the category
+  "/v1/educations":
+    post:
+      summary: Create education
+      tags:
+      - Educations
+      parameters: []
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/education"
+        description: JSON to create education
+  "/v1/educations/{id}":
+    delete:
+      summary: Destroy education
+      tags:
+      - Educations
+      parameters:
+      - name: id
+        in: path
+        description: Education id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+    put:
+      summary: Education update
+      tags:
+      - Educations
+      parameters:
+      - name: id
+        in: path
+        description: Education id
+        schema:
+          "$ref": "#/components/schemas/education_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized - token for logged user is missing
+        '404':
+          description: Not found - incorrect education id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/education"
+        description: JSON to update education
   "/v1/posts":
     post:
       summary: Posts create
@@ -375,6 +441,10 @@ components:
       type: integer
       required: true
       example: 1
+    education_id:
+      type: integer
+      required: true
+      example: 1
     post:
       type: object
       properties:
@@ -433,6 +503,46 @@ components:
         icon_url: image.url.com/icon
         level: 1
         category_id: 9
+    education:
+      type: object
+      properties:
+        school_name:
+          type: string
+          required: true
+        career:
+          type: string
+          required: true
+        start_date:
+          type: date
+          required: false
+        end_date:
+          type: date
+          required: false
+        location:
+          type: string
+          required: false
+        professional_license:
+          type: string
+          required: false
+        is_course:
+          type: string
+          required: false
+          default: false
+        relevant_topics:
+          type: string[]
+          required: false
+          default: []
+      example:
+        school_name: School name
+        career: Career name
+        start_date: '2015-11-21'
+        end_date: '2019-06-15'
+        location: University location
+        professional_license: sdfd-4354-34543-fgfdg
+        is_course: true
+        relevant_topics:
+        - web development
+        - ux/ui design
     profile:
       type: object
       properties:

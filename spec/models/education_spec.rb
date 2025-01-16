@@ -12,10 +12,6 @@ RSpec.describe Education, type: :model do
       should validate_presence_of(:career)
     end
 
-    it 'is_course is present' do
-      should validate_presence_of(:is_course)
-    end
-
     it 'relevant_topics is present' do
       should validate_presence_of(:relevant_topics)
     end

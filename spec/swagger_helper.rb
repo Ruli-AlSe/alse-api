@@ -91,6 +91,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          education_id: {
+            type: 'integer',
+            required: true,
+            example: 1
+          },
           post: {
             type: 'object',
             properties: {
@@ -134,6 +139,29 @@ RSpec.configure do |config|
               icon_url: 'image.url.com/icon',
               level: 1,
               category_id: 9
+            }
+          },
+          education: {
+            type: 'object',
+            properties: {
+              school_name: { type: 'string', required: true },
+              career: { type: 'string', required: true },
+              start_date: { type: 'date', required: false },
+              end_date: { type: 'date', required: false },
+              location: { type: 'string', required: false },
+              professional_license: { type: 'string', required: false },
+              is_course: { type: 'string', required: false, default: false },
+              relevant_topics: { type: 'string[]', required: false, default: [] }
+            },
+            example: {
+              school_name: 'School name',
+              career: 'Career name',
+              start_date: '2015-11-21',
+              end_date: '2019-06-15',
+              location: 'University location',
+              professional_license: 'sdfd-4354-34543-fgfdg',
+              is_course: true,
+              relevant_topics: ['web development', 'ux/ui design']
             }
           },
           profile: {

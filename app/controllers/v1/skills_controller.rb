@@ -1,7 +1,7 @@
 module V1
   class SkillsController < ApplicationController
     before_action :authenticate_user
-    before_action :set_profile, only: %i[create]
+    before_action :set_profile
     before_action :set_skill, only: %i[update destroy]
 
     def create
@@ -34,7 +34,7 @@ module V1
     end
 
     def set_skill
-      @skill = @current_user.profile.skills.find_by(id: params[:id])
+      @skill = @profile.skills.find_by(id: params[:id])
 
       head :not_found unless @skill
     end
