@@ -3,13 +3,11 @@ require 'rails_helper'
 RSpec.describe V1::PostsController, type: :controller do
   describe 'Products listing' do
     let(:user) { create(:owner) }
-    let(:bearer) { create(:token, user: user) }
-    let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
+    let!(:posts_list) { create_list(:post, 5, company: user.company) }
 
     context 'get all posts correctly' do
       before do
-        request.headers.merge! headers
-        get(:index, format: :json)
+        get(:index, format: :json, params: { email: user.email })
       end
 
       context 'response with status ok' do
@@ -20,17 +18,19 @@ RSpec.describe V1::PostsController, type: :controller do
       context 'correct structure of response' do
         subject { payload_test }
         it { is_expected.to include(:posts) }
+        it { expect(subject[:posts].count).to eq(posts_list.count) }
+        it { expect(subject[:posts].first[:id]).to eq(posts_list.first.id) }
       end
     end
 
-    context 'get posts without token' do
+    context 'get posts with incorrect email' do
       before do
-        get(:index, format: :json)
+        get(:index, format: :json, params: { email: 'incorrect@email.com' })
       end
 
-      context 'response with status unauthorized' do
+      context 'response with status not_found' do
         subject { response }
-        it { is_expected.to have_http_status(:unauthorized) }
+        it { is_expected.to have_http_status(:not_found) }
       end
     end
   end

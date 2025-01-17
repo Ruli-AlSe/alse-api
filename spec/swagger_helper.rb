@@ -76,6 +76,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          post_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
+          },
           profile_id: {
             type: 'integer',
             required: true,

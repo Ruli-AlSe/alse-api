@@ -19,10 +19,11 @@ describe 'Post routes' do
   end
 
   it 'index post route' do
-    expect(get: 'v1/posts').to route_to(
+    expect(get: 'v1/posts/user@email.com').to route_to(
       format: :json,
       controller: 'v1/posts',
-      action: 'index'
+      action: 'index',
+      email: 'user@email.com'
     )
   end
 
