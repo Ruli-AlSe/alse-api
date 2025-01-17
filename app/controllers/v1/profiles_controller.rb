@@ -1,7 +1,8 @@
 module V1
   class ProfilesController < ApplicationController
-    before_action :authenticate_user
-    before_action :set_profile
+    before_action :authenticate_user, only: %i[update]
+    before_action :find_current_user_profile, only: %i[update]
+    before_action :find_profile_by_email, only: %i[show]
 
     def show
     end
@@ -10,18 +11,27 @@ module V1
       if !profile_params.empty? && @profile.update(profile_params)
         render :show, status: :ok
       else
-        render json: { errors: @profile.errors.messages }, status: :bad_request
+        render json: { errors: @profile.errors.full_messages }, status: :bad_request
       end
     end
 
     private
 
-    def set_profile
+    def find_current_user_profile
+      return nil unless params[:id].present?
+
       if @current_user.profile && @current_user.profile.id.to_s == params[:id]
         @profile = @current_user.profile
       else
         head :unauthorized
       end
+    end
+
+    def find_profile_by_email
+      user = User.find_by(email: params[:email]) if params[:email].present?
+      @profile = user&.profile
+
+      render json: { errors: { profile: 'Not found' } }, status: :not_found unless @profile
     end
 
     def profile_params

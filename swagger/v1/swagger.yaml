@@ -301,23 +301,24 @@ paths:
       responses:
         '200':
           description: successful
-  "/v1/profiles/{id}":
+  "/v1/profiles/{email}":
     get:
       summary: Profiles show
       tags:
       - Profiles
       parameters:
-      - name: id
+      - name: email
         in: path
-        description: profile id
+        description: Profile email
         schema:
-          "$ref": "#/components/schemas/profile_id"
+          "$ref": "#/components/schemas/profile_email"
         required: true
-      security:
-      - Bearer: []
       responses:
         '200':
-          description: successful
+          description: Successful
+        '404':
+          description: Not found - User profile not found with email provided
+  "/v1/profiles/{id}":
     put:
       summary: Profiles update
       tags:
@@ -576,6 +577,10 @@ components:
       type: integer
       required: true
       example: 1
+    profile_email:
+      type: string
+      required: true
+      example: raul@example.com
     category_id:
       type: integer
       required: true

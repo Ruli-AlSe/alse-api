@@ -10,7 +10,8 @@ Rails.application.routes.draw do
         post 'login', on: :collection
       end
       resources :companies, only: %i[show]
-      resources :profiles, only: %i[show update]
+      resources :profiles, only: %i[update]
+      get 'profiles/:email', to: 'profiles#show', constraints: { email: /[^\/]+/ }
       resources :categories, only: %i[index create update destroy]
       resources :skills, only: %i[create update destroy]
       resources :educations, only: %i[create update destroy]

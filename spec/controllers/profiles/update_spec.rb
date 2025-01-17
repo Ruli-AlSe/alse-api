@@ -13,8 +13,8 @@ RSpec.describe V1::ProfilesController, type: :controller do
       before do
         request.headers.merge!(headers)
         put(:update, format: :json,
-                     params: { id: user_profile.id, profile: { name: 'New testing name',
-                                                               headliner: 'New testing headliner' } })
+                     params: { id: user_profile.id,
+                               profile: { name: 'New testing name', headliner: 'New testing headliner' } })
       end
 
       context 'response with status ok' do
