@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe 'Category routes' do
   it 'index category route' do
-    expect(get: 'v1/categories').to route_to(
+    expect(get: 'v1/categories/user@email.com').to route_to(
       format: :json,
       controller: 'v1/categories',
-      action: 'index'
+      action: 'index',
+      email: 'user@email.com'
     )
   end
 

@@ -25,17 +25,6 @@ paths:
             schema:
               "$ref": "#/components/schemas/category"
         description: JSON to create the category
-    get:
-      summary: Categories list
-      tags:
-      - Categories
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: Successful
-        '401':
-          description: Not Authorized
   "/v1/categories/{id}":
     delete:
       summary: Categories delete
@@ -83,6 +72,23 @@ paths:
             schema:
               "$ref": "#/components/schemas/category"
         description: JSON to update the category
+  "/v1/categories/{email}":
+    get:
+      summary: Categories list
+      tags:
+      - Categories
+      parameters:
+      - name: email
+        in: path
+        description: Email of the owner of the categories
+        schema:
+          "$ref": "#/components/schemas/category_email"
+        required: true
+      responses:
+        '200':
+          description: Successful
+        '404':
+          description: Not found - categories not found with email provided
   "/v1/educations":
     post:
       summary: Create education
@@ -234,15 +240,6 @@ paths:
             schema:
               "$ref": "#/components/schemas/post"
         description: JSON to create the post
-    get:
-      summary: Posts list
-      tags:
-      - Posts
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: successful
   "/v1/posts/{id}":
     delete:
       summary: Delete a post
@@ -283,6 +280,23 @@ paths:
             schema:
               "$ref": "#/components/schemas/post"
         description: JSON to update the post
+  "/v1/posts/{email}":
+    get:
+      summary: Posts list
+      tags:
+      - Posts
+      parameters:
+      - name: email
+        in: path
+        description: Email of the owner of the posts
+        schema:
+          "$ref": "#/components/schemas/post_email"
+        required: true
+      responses:
+        '200':
+          description: successful
+        '404':
+          description: Not found - posts not found with email provided
   "/v1/posts/{post_id}/restore":
     post:
       summary: Restore a post
@@ -301,23 +315,24 @@ paths:
       responses:
         '200':
           description: successful
-  "/v1/profiles/{id}":
+  "/v1/profiles/{email}":
     get:
       summary: Profiles show
       tags:
       - Profiles
       parameters:
-      - name: id
+      - name: email
         in: path
-        description: profile id
+        description: Profile email
         schema:
-          "$ref": "#/components/schemas/profile_id"
+          "$ref": "#/components/schemas/profile_email"
         required: true
-      security:
-      - Bearer: []
       responses:
         '200':
-          description: successful
+          description: Successful
+        '404':
+          description: Not found - User profile not found with email provided
+  "/v1/profiles/{id}":
     put:
       summary: Profiles update
       tags:
@@ -359,17 +374,6 @@ paths:
             schema:
               "$ref": "#/components/schemas/project"
         description: JSON to create project
-    get:
-      summary: Projects list
-      tags:
-      - Projects
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: Successful
-        '401':
-          description: Not Authorized - token for logged user is missing
   "/v1/projects/{id}":
     delete:
       summary: Destroy project
@@ -417,6 +421,23 @@ paths:
             schema:
               "$ref": "#/components/schemas/project"
         description: JSON to update project
+  "/v1/projects/{email}":
+    get:
+      summary: Projects list
+      tags:
+      - Projects
+      parameters:
+      - name: email
+        in: path
+        description: Email of the owner of the posts
+        schema:
+          "$ref": "#/components/schemas/project_email"
+        required: true
+      responses:
+        '200':
+          description: Successful
+        '404':
+          description: Not found - projects not found with email provided
   "/v1/skills":
     post:
       summary: Skill create
@@ -572,14 +593,26 @@ components:
       type: integer
       required: true
       example: 1
+    post_email:
+      type: string
+      required: true
+      example: raul@example.com
     profile_id:
       type: integer
       required: true
       example: 1
+    profile_email:
+      type: string
+      required: true
+      example: raul@example.com
     category_id:
       type: integer
       required: true
       example: 1
+    category_email:
+      type: string
+      required: true
+      example: raul@example.com
     skill_id:
       type: integer
       required: true
@@ -596,6 +629,10 @@ components:
       type: integer
       required: true
       example: 1
+    project_email:
+      type: string
+      required: true
+      example: raul@example.com
     post:
       type: object
       properties:

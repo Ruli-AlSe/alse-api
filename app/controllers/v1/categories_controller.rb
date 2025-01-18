@@ -1,7 +1,8 @@
 module V1
   class CategoriesController < ApplicationController
-    before_action :authenticate_user
-    before_action :set_company
+    before_action :authenticate_user, only: %i[create update destroy]
+    before_action :set_company_by_current_user, only: %i[create update destroy]
+    before_action :set_company_by_email, only: %i[index]
     before_action :set_categories, only: %i[update destroy]
 
     def index
@@ -39,6 +40,17 @@ module V1
     end
 
     def set_company
+      @company = @current_user.company
+    end
+
+    def set_company_by_email
+      user = User.find_by(email: params[:email]) if params[:email].present?
+      @company = user&.company
+
+      head :not_found unless @company
+    end
+
+    def set_company_by_current_user
       @company = @current_user.company
     end
 

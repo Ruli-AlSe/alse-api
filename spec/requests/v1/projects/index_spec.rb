@@ -1,25 +1,25 @@
 require 'swagger_helper'
 
 RSpec.describe 'v1/projects', type: :request do
-  path '/v1/projects' do
+  path '/v1/projects/{email}' do
     get('Projects list') do
       tags :Projects
       consumes 'application/json'
-      security [Bearer: []]
+      parameter name: 'email', in: :path, description: 'Email of the owner of the posts',
+                schema: { '$ref' => '#/components/schemas/project_email' }
 
       response(200, 'Successful') do
         let(:user) { create(:owner) }
-        let(:projects) { create_list(:Project, 10, company: user.company) }
-        let(:user_token) { create(:token, user: user) }
-        let(:Authorization) { "Bearer #{user_token.token}" }
+        let(:email) { user.email }
+        let!(:projects) { create_list(:project, 10, company: user.company) }
 
         run_test!
       end
 
-      response(401, 'Not Authorized - token for logged user is missing') do
+      response(404, 'Not found - projects not found with email provided') do
         let(:user) { create(:owner) }
-        let(:projects) { create_list(:Project, 10, company: user.company) }
-        let(:Authorization) { 'Bearer invalid-token' }
+        let(:email) { 'incorrect@email.com' }
+        let!(:projects) { create_list(:project, 10, company: user.company) }
 
         run_test!
       end

@@ -77,14 +77,16 @@ end
                              content: "#{Faker::HTML.ordered_list}<br /><br />#{Faker::HTML.table}",
                              image_url: Faker::LoremFlickr.image,
                              slug: title.parameterize,
-                             credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})")
+                             credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})",
+                             category_id: admin_categories.sample.id)
 
   title = Faker::Hacker.say_something_smart
   owner_company.posts.create(title: title,
                              content: "#{Faker::HTML.ordered_list}<br /><br />#{Faker::HTML.table}",
                              image_url: Faker::LoremFlickr.image,
                              slug: title.parameterize,
-                             credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})")
+                             credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})",
+                             category_id: owner_categories.sample.id)
 end
 
 admin_profile.educations.create([
@@ -148,7 +150,7 @@ owner_categories.each do |category|
 end
 
 admin_categories.each do |category|
-  rand_number = rand(0..admin_categories.count)
+  rand_number = rand(0..(admin_categories.count - 1))
 
   Skill.create(name: Faker::Company.buzzword,
                icon_url: Faker::Avatar.image,

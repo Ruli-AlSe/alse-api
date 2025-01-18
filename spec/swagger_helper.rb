@@ -76,15 +76,30 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          post_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
+          },
           profile_id: {
             type: 'integer',
             required: true,
             example: 1
           },
+          profile_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
+          },
           category_id: {
             type: 'integer',
             required: true,
             example: 1
+          },
+          category_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
           },
           skill_id: {
             type: 'integer',
@@ -105,6 +120,11 @@ RSpec.configure do |config|
             type: 'integer',
             required: true,
             example: 1
+          },
+          project_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
           },
           post: {
             type: 'object',

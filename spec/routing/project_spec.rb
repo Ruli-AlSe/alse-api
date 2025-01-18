@@ -2,10 +2,11 @@ require 'rails_helper'
 
 describe 'Project routes' do
   it 'show projects route' do
-    expect(get: 'v1/projects').to route_to(
+    expect(get: 'v1/projects/user@email.com').to route_to(
       format: :json,
       controller: 'v1/projects',
-      action: 'index'
+      action: 'index',
+      email: 'user@email.com'
     )
   end
 
