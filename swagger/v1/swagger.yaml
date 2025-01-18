@@ -25,17 +25,6 @@ paths:
             schema:
               "$ref": "#/components/schemas/category"
         description: JSON to create the category
-    get:
-      summary: Categories list
-      tags:
-      - Categories
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: Successful
-        '401':
-          description: Not Authorized
   "/v1/categories/{id}":
     delete:
       summary: Categories delete
@@ -83,6 +72,23 @@ paths:
             schema:
               "$ref": "#/components/schemas/category"
         description: JSON to update the category
+  "/v1/categories/{email}":
+    get:
+      summary: Categories list
+      tags:
+      - Categories
+      parameters:
+      - name: email
+        in: path
+        description: Email of the owner of the categories
+        schema:
+          "$ref": "#/components/schemas/category_email"
+        required: true
+      responses:
+        '200':
+          description: Successful
+        '404':
+          description: Not found - categories not found with email provided
   "/v1/educations":
     post:
       summary: Create education
@@ -597,6 +603,10 @@ components:
       type: integer
       required: true
       example: 1
+    category_email:
+      type: string
+      required: true
+      example: raul@example.com
     skill_id:
       type: integer
       required: true

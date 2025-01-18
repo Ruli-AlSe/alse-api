@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       resources :companies, only: %i[show]
       resources :profiles, only: %i[update]
       get 'profiles/:email', to: 'profiles#show', constraints: { email: /[^\/]+/ }
-      resources :categories, only: %i[index create update destroy]
+      get 'categories/:email', to: 'categories#index', constraints: { email: /[^\/]+/ }
+      resources :categories, only: %i[create update destroy]
       resources :skills, only: %i[create update destroy]
       resources :educations, only: %i[create update destroy]
       resources :jobs, only: %i[create update destroy]

@@ -3,13 +3,10 @@ require 'rails_helper'
 RSpec.describe V1::CategoriesController, type: :controller do
   describe 'Categories listing' do
     let(:user) { create(:owner_company_categories) }
-    let(:bearer) { create(:token, user: user) }
-    let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
 
     context 'get all categories correctly' do
       before do
-        request.headers.merge! headers
-        get(:index, format: :json)
+        get(:index, format: :json, params: { email: user.email })
       end
 
       context 'response with status ok' do
@@ -33,14 +30,14 @@ RSpec.describe V1::CategoriesController, type: :controller do
       end
     end
 
-    context 'get categories without token' do
+    context 'get categories with incorrect email' do
       before do
-        get(:index, format: :json)
+        get(:index, format: :json, params: { email: 'incorrect@email.com' })
       end
 
-      context 'response with status unauthorized' do
+      context 'response with status not_found' do
         subject { response }
-        it { is_expected.to have_http_status(:unauthorized) }
+        it { is_expected.to have_http_status(:not_found) }
       end
     end
   end

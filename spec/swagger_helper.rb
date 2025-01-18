@@ -96,6 +96,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          category_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
+          },
           skill_id: {
             type: 'integer',
             required: true,

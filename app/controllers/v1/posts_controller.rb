@@ -6,7 +6,6 @@ module V1
     before_action :set_post, only: %i[update destroy]
 
     def index
-      puts @company.inspect
       @posts = @company.posts
     end
 
