@@ -121,6 +121,11 @@ RSpec.configure do |config|
             required: true,
             example: 1
           },
+          project_email: {
+            type: 'string',
+            required: true,
+            example: 'raul@example.com'
+          },
           post: {
             type: 'object',
             properties: {

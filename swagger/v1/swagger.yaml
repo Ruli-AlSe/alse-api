@@ -374,17 +374,6 @@ paths:
             schema:
               "$ref": "#/components/schemas/project"
         description: JSON to create project
-    get:
-      summary: Projects list
-      tags:
-      - Projects
-      security:
-      - Bearer: []
-      responses:
-        '200':
-          description: Successful
-        '401':
-          description: Not Authorized - token for logged user is missing
   "/v1/projects/{id}":
     delete:
       summary: Destroy project
@@ -432,6 +421,23 @@ paths:
             schema:
               "$ref": "#/components/schemas/project"
         description: JSON to update project
+  "/v1/projects/{email}":
+    get:
+      summary: Projects list
+      tags:
+      - Projects
+      parameters:
+      - name: email
+        in: path
+        description: Email of the owner of the posts
+        schema:
+          "$ref": "#/components/schemas/project_email"
+        required: true
+      responses:
+        '200':
+          description: Successful
+        '404':
+          description: Not found - projects not found with email provided
   "/v1/skills":
     post:
       summary: Skill create
@@ -623,6 +629,10 @@ components:
       type: integer
       required: true
       example: 1
+    project_email:
+      type: string
+      required: true
+      example: raul@example.com
     post:
       type: object
       properties:
