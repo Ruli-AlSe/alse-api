@@ -21,7 +21,7 @@ RSpec.describe V1::ProfilesController, type: :controller do
 
       it {
         is_expected.to include(:id, :name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number,
-                               :social_media, :skills)
+                               :social_media, :competences)
       }
       it { expect(subject[:id]).to eq(user_profile.id) }
     end

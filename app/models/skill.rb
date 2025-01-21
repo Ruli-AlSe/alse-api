@@ -12,4 +12,8 @@ class Skill < ApplicationRecord
 
   # validations
   validates :name, presence: true
+
+  def self.grouped_by_category(skills)
+    skills.group_by { |skill| skill.category.title }
+  end
 end

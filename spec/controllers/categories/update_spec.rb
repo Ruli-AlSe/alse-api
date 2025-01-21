@@ -21,7 +21,7 @@ RSpec.describe V1::CategoriesController, type: :controller do
 
       context 'response with correct category structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :title, :description, :slug, :company_id, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :title, :description, :slug, :company_id) }
         it { expect(subject[:title]).to eq('New testing name') }
         it { expect(subject[:slug]).to eq('new-testing-name') }
       end

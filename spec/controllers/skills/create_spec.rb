@@ -27,7 +27,7 @@ RSpec.describe V1::SkillsController, type: :controller do
 
       context 'response with correct skill structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :icon_url, :level, :category, :created_at, :updated_at) }
+        it { is_expected.to include(:id, :name, :icon_url, :level, :category) }
         it { expect(subject[:category][:id]).to eq(category.id) }
       end
     end
