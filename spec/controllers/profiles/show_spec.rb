@@ -20,7 +20,7 @@ RSpec.describe V1::ProfilesController, type: :controller do
       subject { payload_test }
 
       it {
-        is_expected.to include(:id, :name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number,
+        is_expected.to include(:id, :name, :last_name, :image_url, :about_me, :headliner, :bio, :city, :state, :country, :phone_number,
                                :social_media, :competences)
       }
       it { expect(subject[:id]).to eq(user_profile.id) }
