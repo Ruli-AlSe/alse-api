@@ -26,7 +26,7 @@ RSpec.describe V1::ProfilesController, type: :controller do
         subject { payload_test }
         it {
           is_expected.to include(:id, :name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number,
-                                 :social_media, :skills)
+                                 :social_media, :competences)
         }
       end
     end
@@ -47,8 +47,8 @@ RSpec.describe V1::ProfilesController, type: :controller do
       context 'response with correct profile structure' do
         subject { payload_test }
         it {
-          is_expected.to include(:id, :name, :last_name, :headliner, :bio, :city, :state, :country, :phone_number,
-                                 :social_media, :skills)
+          is_expected.to include(:id, :name, :last_name, :image_url, :about_me, :headliner, :bio, :city, :state, :country, :phone_number,
+                                 :social_media, :competences)
         }
       end
     end

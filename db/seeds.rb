@@ -21,6 +21,8 @@ admin_company = Company.create(name: 'alse')
 admin = Admin.create(email: 'raul@example.com', age: 31, password: '123abc', company_id: admin_company.id)
 admin_profile = Profile.create(name: Faker::Name.first_name,
                                last_name: Faker::Name.last_name,
+                               image_url: Faker::Avatar.image,
+                               about_me: Faker::Lorem.paragraph(sentence_count: 5),
                                headliner: Faker::Job.title,
                                bio: Faker::Lorem.paragraph(sentence_count: 10),
                                city: Faker::Address.city,

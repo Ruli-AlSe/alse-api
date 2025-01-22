@@ -238,6 +238,8 @@ RSpec.configure do |config|
               name: { type: 'string', required: false },
               last_name: { type: 'string', required: false },
               headliner: { type: 'string', required: false },
+              image_url: { type: 'string', required: false },
+              about_me: { type: 'string', required: false },
               bio: { type: 'text', required: false },
               city: { type: 'string', required: false },
               state: { type: 'string', required: false },
@@ -249,6 +251,8 @@ RSpec.configure do |config|
               profile: {
                 name: 'user name updated',
                 last_name: 'user last name updated',
+                image_url: 'https://avatars.githubusercontent.com/u/38964571?v=4',
+                about_me: 'some information about me',
                 headliner: 'user headliner updated',
                 bio: 'user bio updated',
                 city: 'city updated',
