@@ -18,6 +18,15 @@ describe 'Project routes' do
     )
   end
 
+  it 'create Skill in Project route' do
+    expect(post: 'v1/projects/1/skills').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'create',
+      project_id: '1'
+    )
+  end
+
   it 'update project route' do
     expect(put: 'v1/projects/1').to route_to(
       format: :json,
@@ -27,12 +36,32 @@ describe 'Project routes' do
     )
   end
 
+  it 'update Skill in Project route' do
+    expect(put: 'v1/projects/1/skills/2').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'update',
+      project_id: '1',
+      id: '2'
+    )
+  end
+
   it 'delete project route' do
     expect(delete: 'v1/projects/1').to route_to(
       format: :json,
       controller: 'v1/projects',
       action: 'destroy',
       id: '1'
+    )
+  end
+
+  it 'delete Skill in Project route' do
+    expect(delete: 'v1/projects/1/skills/2').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'destroy',
+      project_id: '1',
+      id: '2'
     )
   end
 end

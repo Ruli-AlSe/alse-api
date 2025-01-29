@@ -6,18 +6,22 @@ Rails.application.routes.draw do
 
     namespace :v1, defaults: { format: :json } do
       resources :users, only: %i[create] do
-        # "v1/users/login"
         post 'login', on: :collection
       end
       resources :companies, only: %i[show]
-      resources :profiles, only: %i[update]
+      resources :profiles, only: %i[update] do
+        resources :skills, only: %i[create update destroy]
+      end
+      resources :projects, only: %i[index create update destroy] do
+        resources :skills, only: %i[create update destroy]
+      end
+      resources :jobs, only: %i[create update destroy] do
+        resources :skills, only: %i[create update destroy]
+      end
       get 'profiles/:email', to: 'profiles#show', constraints: { email: /[^\/]+/ }
       get 'categories/:email', to: 'categories#index', constraints: { email: /[^\/]+/ }
       resources :categories, only: %i[create update destroy]
-      resources :skills, only: %i[create update destroy]
       resources :educations, only: %i[create update destroy]
-      resources :jobs, only: %i[create update destroy]
-      resources :projects, only: %i[index create update destroy]
       get 'projects/:email', to: 'projects#index', constraints: { email: /[^\/]+/ }
       get 'posts/:email', to: 'posts#index', constraints: { email: /[^\/]+/ }
       resources :posts, only: %i[create update destroy] do

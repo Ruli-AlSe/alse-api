@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   describe 'Validations of the model' do
+    subject { build(:post) }
+
     it 'company_id is present' do
       should validate_presence_of(:company_id)
     end

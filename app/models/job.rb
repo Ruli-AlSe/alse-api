@@ -6,6 +6,7 @@ class Job < ApplicationRecord
   }
 
   belongs_to :profile
+  has_many :skills, as: :skillable
 
   # validations
   validates :title, :location, :job_type, :company_name, :activities, presence: true

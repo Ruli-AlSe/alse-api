@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe V1::SkillsController, type: :controller do
-  describe 'Update skill' do
+  describe 'Update skill in job' do
     let(:user) { create(:owner) }
     let!(:user_profile) { create(:profile, profilable: user) }
     let(:category) { create(:category, company: user.company) }
-    let(:skill) { create(:skill, category: category, profile: user_profile) }
+    let(:job) { create(:job, profile: user_profile) }
+    let(:skill) { create(:skill, category: category, skillable: job) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
     let(:skill_info) {
@@ -17,7 +18,7 @@ RSpec.describe V1::SkillsController, type: :controller do
     context 'successful response' do
       before do
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: skill.id, skill: skill_info })
+        put(:update, format: :json, params: { job_id: job.id, id: skill.id, skill: skill_info })
       end
 
       context 'with status ok' do
@@ -36,7 +37,7 @@ RSpec.describe V1::SkillsController, type: :controller do
       before do
         skill_info[:name] = ''
         request.headers.merge!(headers)
-        put(:update, format: :json, params: { id: skill.id, skill: skill_info })
+        put(:update, format: :json, params: { job_id: job.id, id: skill.id, skill: skill_info })
       end
 
       context 'with status bad request' do
@@ -52,7 +53,7 @@ RSpec.describe V1::SkillsController, type: :controller do
 
     context 'send request without token' do
       before do
-        put(:update, format: :json, params: { id: skill.id, skill: skill_info })
+        put(:update, format: :json, params: { job_id: job.id, id: skill.id, skill: skill_info })
       end
 
       context 'with status unauthorized' do

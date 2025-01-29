@@ -1,25 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe V1::JobsController, type: :controller do
-  describe 'Create job' do
+RSpec.describe V1::SkillsController, type: :controller do
+  describe 'Create skill for profile' do
     let(:user) { create(:owner) }
     let!(:user_profile) { create(:profile, profilable: user) }
+    let(:category) { create(:category, company: user.company) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
-    let(:job_info) {
-      { title: Faker::Job.title,
-        location: "#{Faker::Address.city}, #{Faker::Address.country}",
-        job_type: :full_time,
-        company_name: Faker::Company.name,
-        start_date: '2020-01-01',
-        end_date: '2024-11-01',
-        activities: Array.new(5, Faker::Quote.famous_last_words) }
+    let(:skill_info) {
+      { name: Faker::ProgrammingLanguage.name,
+        icon_url: Faker::Avatar.image,
+        level: :basic,
+        category_id: category.id }
     }
 
-    context 'Job registered successfully' do
+    context 'Skill registered successfully' do
       before do
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { job: job_info })
+        post(:create, format: :json, params: { profile_id: user_profile.id, skill: skill_info })
       end
 
       context 'response with status created' do
@@ -27,21 +25,18 @@ RSpec.describe V1::JobsController, type: :controller do
         it { is_expected.to have_http_status(:created) }
       end
 
-      context 'response with correct job structure' do
+      context 'response with correct skill structure' do
         subject { payload_test }
-        it {
-          is_expected.to include(:id, :title, :location, :job_type, :company_name, :start_date, :skills,
-                                 :end_date, :activities, :profile_id, :created_at, :updated_at)
-        }
-        it { expect(subject[:title]).to eq(job_info[:title]) }
+        it { is_expected.to include(:id, :name, :icon_url, :level, :category) }
+        it { expect(subject[:category][:id]).to eq(category.id) }
       end
     end
 
-    context 'job not registered' do
+    context 'Category not registered' do
       before do
-        job_info[:title] = ''
+        skill_info[:name] = ''
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { job: job_info })
+        post(:create, format: :json, params: { profile_id: user_profile.id, skill: skill_info })
       end
 
       context 'response with status bad request' do
@@ -57,7 +52,7 @@ RSpec.describe V1::JobsController, type: :controller do
 
     context 'post request without token' do
       before do
-        post(:create, format: :json, params: { job: job_info })
+        post(:create, format: :json, params: { profile_id: user_profile.id, skill: skill_info })
       end
 
       context 'response with status unauthorized' do
