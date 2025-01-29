@@ -18,4 +18,33 @@ describe 'Profile routes' do
       id: '1'
     )
   end
+
+  it 'create Skill in Profile route' do
+    expect(post: 'v1/profiles/1/skills').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'create',
+      profile_id: '1'
+    )
+  end
+
+  it 'update Skill in Profile route' do
+    expect(put: 'v1/profiles/1/skills/2').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'update',
+      profile_id: '1',
+      id: '2'
+    )
+  end
+
+  it 'delete Skill in Profile route' do
+    expect(delete: 'v1/profiles/1/skills/2').to route_to(
+      format: :json,
+      controller: 'v1/skills',
+      action: 'destroy',
+      profile_id: '1',
+      id: '2'
+    )
+  end
 end

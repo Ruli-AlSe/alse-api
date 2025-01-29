@@ -24,7 +24,10 @@ RSpec.describe V1::ProjectsController, type: :controller do
 
       context 'response with correct project structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :name, :description, :company_name, :live_url, :repository_url, :company_id, :created_at, :updated_at) }
+        it {
+          is_expected.to include(:id, :name, :description, :company_name, :live_url, :repository_url, :skills,
+                                 :company_id, :created_at, :updated_at)
+        }
       end
     end
 

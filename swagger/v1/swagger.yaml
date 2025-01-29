@@ -438,12 +438,18 @@ paths:
           description: Successful
         '404':
           description: Not found - projects not found with email provided
-  "/v1/skills":
+  "/v1/jobs/{job_id}/skills":
     post:
-      summary: Skill create
+      summary: create Skill for job
       tags:
       - Skills
-      parameters: []
+      parameters:
+      - name: job_id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
       security:
       - Bearer: []
       responses:
@@ -457,9 +463,9 @@ paths:
             schema:
               "$ref": "#/components/schemas/skill"
         description: JSON to create skill
-  "/v1/skills/{id}":
+  "/v1/jobs/{job_id}/skills/{id}":
     delete:
-      summary: Destroy skill
+      summary: Delete skill for job
       tags:
       - Skills
       parameters:
@@ -469,6 +475,12 @@ paths:
         schema:
           "$ref": "#/components/schemas/skill_id"
         required: true
+      - name: job_id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
       security:
       - Bearer: []
       responses:
@@ -477,7 +489,7 @@ paths:
         '401':
           description: Not Authorized
         '404':
-          description: Not Found
+          description: Not Found - job_id or skill_id not found
     put:
       summary: Skill update
       tags:
@@ -489,6 +501,12 @@ paths:
         schema:
           "$ref": "#/components/schemas/skill_id"
         required: true
+      - name: job_id
+        in: path
+        description: Job id
+        schema:
+          "$ref": "#/components/schemas/job_id"
+        required: true
       security:
       - Bearer: []
       responses:
@@ -497,7 +515,175 @@ paths:
         '401':
           description: Not Authorized
         '404':
-          description: Not Found
+          description: Not Found - job_id or skill_id not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to update skill
+  "/v1/profiles/{profile_id}/skills":
+    post:
+      summary: create Skill for profile
+      tags:
+      - Skills
+      parameters:
+      - name: profile_id
+        in: path
+        description: Profile id
+        schema:
+          "$ref": "#/components/schemas/profile_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to create skill
+  "/v1/profiles/{profile_id}/skills/{id}":
+    delete:
+      summary: Delete skill for profile
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      - name: profile_id
+        in: path
+        description: Profile id
+        schema:
+          "$ref": "#/components/schemas/profile_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found - profile_id or skill_id not found
+    put:
+      summary: update Skill for profile
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      - name: profile_id
+        in: path
+        description: Profile id
+        schema:
+          "$ref": "#/components/schemas/profile_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found - profile_id or skill_id not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to update skill
+  "/v1/projects/{project_id}/skills":
+    post:
+      summary: Skill create
+      tags:
+      - Skills
+      parameters:
+      - name: project_id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '201':
+          description: Successful
+        '401':
+          description: Not Authorized
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/skill"
+        description: JSON to create skill
+  "/v1/projects/{project_id}/skills/{id}":
+    delete:
+      summary: Delete skill for project
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      - name: project_id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found - project_id or skill_id not found
+    put:
+      summary: update Skill for project
+      tags:
+      - Skills
+      parameters:
+      - name: id
+        in: path
+        description: Skill id
+        schema:
+          "$ref": "#/components/schemas/skill_id"
+        required: true
+      - name: project_id
+        in: path
+        description: Project id
+        schema:
+          "$ref": "#/components/schemas/project_id"
+        required: true
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: Successful
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found - project_id or skill_id not found
       requestBody:
         content:
           application/json:

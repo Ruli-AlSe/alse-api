@@ -1,61 +1,61 @@
 require 'rails_helper'
 
 RSpec.describe V1::SkillsController, type: :controller do
-  describe 'Create skill' do
+  describe 'Update skill' do
     let(:user) { create(:owner) }
-    let!(:user_profile) { create(:profile, profilable: user) }
     let(:category) { create(:category, company: user.company) }
+    let(:project) { create(:project, company: user.company) }
+    let(:skill) { create(:skill, category: category, skillable: project) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
     let(:skill_info) {
-      { name: Faker::ProgrammingLanguage.name,
-        icon_url: Faker::Avatar.image,
-        level: :basic,
+      { name: 'name updated',
+        level: :advanced,
         category_id: category.id }
     }
 
-    context 'Skill registered successfully' do
+    context 'successful response' do
       before do
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { skill: skill_info })
+        put(:update, format: :json, params: { project_id: project.id, id: skill.id, skill: skill_info })
       end
 
-      context 'response with status created' do
+      context 'with status ok' do
         subject { response }
-        it { is_expected.to have_http_status(:created) }
+        it { is_expected.to have_http_status(:ok) }
       end
 
-      context 'response with correct skill structure' do
+      context 'with correct skill structure' do
         subject { payload_test }
         it { is_expected.to include(:id, :name, :icon_url, :level, :category) }
-        it { expect(subject[:category][:id]).to eq(category.id) }
+        it { expect(subject[:name]).to eq(skill_info[:name]) }
       end
     end
 
-    context 'Category not registered' do
+    context 'unsuccessful response' do
       before do
         skill_info[:name] = ''
         request.headers.merge!(headers)
-        post(:create, format: :json, params: { skill: skill_info })
+        put(:update, format: :json, params: { project_id: project.id, id: skill.id, skill: skill_info })
       end
 
-      context 'response with status bad request' do
+      context 'with status bad request' do
         subject { response }
         it { is_expected.to have_http_status(:bad_request) }
       end
 
-      context 'response with correct errors structure' do
+      context 'with correct errors structure' do
         subject { payload_test }
         it { is_expected.to include(:errors) }
       end
     end
 
-    context 'post request without token' do
+    context 'send request without token' do
       before do
-        post(:create, format: :json, params: { skill: skill_info })
+        put(:update, format: :json, params: { project_id: project.id, id: skill.id, skill: skill_info })
       end
 
-      context 'response with status unauthorized' do
+      context 'with status unauthorized' do
         subject { response }
         it { is_expected.to have_http_status(:unauthorized) }
       end

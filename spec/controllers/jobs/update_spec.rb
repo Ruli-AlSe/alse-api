@@ -27,7 +27,7 @@ RSpec.describe V1::JobsController, type: :controller do
       context 'response with correct job structure' do
         subject { payload_test }
         it {
-          is_expected.to include(:id, :title, :location, :job_type, :company_name, :start_date,
+          is_expected.to include(:id, :title, :location, :job_type, :company_name, :start_date, :skills,
                                  :end_date, :activities, :profile_id, :created_at, :updated_at)
         }
         it { expect(subject[:title]).to eq(job_info[:title]) }
