@@ -12,8 +12,8 @@ RSpec.describe Skill, type: :model do
       should belong_to(:category)
     end
 
-    it 'belongs to profile relationship' do
-      should belong_to(:profile)
+    it 'there is a relation with profile' do
+      should belong_to(:skillable)
     end
   end
 end

@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Project, type: :model do
   describe 'Validations of the model' do
+    subject { build(:project) }
+
     it 'name is present' do
       should validate_presence_of(:name)
     end
@@ -20,6 +22,10 @@ RSpec.describe Project, type: :model do
 
     it 'belogs to a company' do
       should belong_to(:company)
+    end
+
+    it 'has many skill relation' do
+      should have_many(:skills)
     end
   end
 end

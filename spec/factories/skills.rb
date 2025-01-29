@@ -4,6 +4,6 @@ FactoryBot.define do
     icon_url { Faker::Avatar.image }
     level { Faker::Number.between(from: 1, to: 5) }
     category
-    profile
+    skillable { association :profile }
   end
 end

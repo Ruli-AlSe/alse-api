@@ -27,5 +27,9 @@ RSpec.describe Job, type: :model do
     it 'belongs to profile relationship' do
       should belong_to(:profile)
     end
+
+    it 'has many skill relation' do
+      should have_many(:skills)
+    end
   end
 end

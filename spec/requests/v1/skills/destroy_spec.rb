@@ -12,7 +12,7 @@ RSpec.describe 'v1/skills', type: :request do
         let(:user) { create(:owner) }
         let(:profile) { create(:profile, profilable: user) }
         let(:category) { create(:category, company: user.company) }
-        let(:skill) { create(:skill, category: category, profile: profile) }
+        let(:skill) { create(:skill, category: category, skillable: profile) }
         let(:id) { skill.id }
         let(:user_token) { create(:token, user: user) }
         let(:Authorization) { "Bearer #{user_token.token}" }
@@ -24,7 +24,7 @@ RSpec.describe 'v1/skills', type: :request do
         let(:user) { create(:owner) }
         let!(:profile) { create(:profile, profilable: user) }
         let(:category) { create(:category, company: user.company) }
-        let(:skill) { create(:skill, category: category, profile: profile) }
+        let(:skill) { create(:skill, category: category, skillable: profile) }
         let(:id) { skill.id }
         let(:Authorization) { 'Bearer ' }
 
@@ -35,7 +35,7 @@ RSpec.describe 'v1/skills', type: :request do
         let(:user) { create(:owner) }
         let!(:profile) { create(:profile, profilable: user) }
         let(:category) { create(:category, company: user.company) }
-        let(:skill) { create(:skill, category: category, profile: profile) }
+        let(:skill) { create(:skill, category: category, skillable: profile) }
         let(:id) { 0 }
         let(:user_token) { create(:token, user: user) }
         let(:Authorization) { "Bearer #{user_token.token}" }

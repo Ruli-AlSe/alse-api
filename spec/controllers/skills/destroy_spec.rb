@@ -5,7 +5,7 @@ RSpec.describe V1::SkillsController, type: :controller do
     let(:user) { create(:owner) }
     let!(:user_profile) { create(:profile, profilable: user) }
     let(:category) { create(:category, company: user.company) }
-    let(:skill) { create(:skill, category: category, profile: user_profile) }
+    let(:skill) { create(:skill, category: category, skillable: user_profile) }
     let(:bearer) { create(:token, user: user) }
     let(:headers) { { 'Authorization': "Bearer #{bearer.token}" } }
 
