@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_22_012814) do
+ActiveRecord::Schema.define(version: 2025_01_29_062431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,11 +112,12 @@ ActiveRecord::Schema.define(version: 2025_01_22_012814) do
     t.string "icon_url"
     t.integer "level"
     t.bigint "category_id", null: false
-    t.bigint "profile_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "skillable_id"
+    t.string "skillable_type"
     t.index ["category_id"], name: "index_skills_on_category_id"
-    t.index ["profile_id"], name: "index_skills_on_profile_id"
+    t.index ["skillable_type", "skillable_id"], name: "index_skills_on_skillable_type_and_skillable_id"
   end
 
   create_table "tokens", force: :cascade do |t|
@@ -144,7 +145,6 @@ ActiveRecord::Schema.define(version: 2025_01_22_012814) do
   add_foreign_key "posts", "companies"
   add_foreign_key "projects", "companies"
   add_foreign_key "skills", "categories"
-  add_foreign_key "skills", "profiles"
   add_foreign_key "tokens", "users"
   add_foreign_key "users", "companies"
 end
