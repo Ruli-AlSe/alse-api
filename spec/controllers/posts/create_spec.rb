@@ -12,6 +12,7 @@ RSpec.describe V1::PostsController, type: :controller do
         image_url: 'image.url',
         slug: Faker::Book.title.parameterize,
         credits: '(page.link.com, page name, user name)',
+        short_description: 'this is my short description',
         category_id: category.id  }
     }
 
@@ -28,7 +29,10 @@ RSpec.describe V1::PostsController, type: :controller do
 
       context 'response with correct post structure' do
         subject { payload_test }
-        it { is_expected.to include(:id, :title, :content, :credits, :company_id, :created_at, :updated_at) }
+        it {
+          is_expected.to include(:id, :title, :content, :credits, :image_url, :slug, :short_description, :category_name,
+                                 :created_at, :updated_at)
+        }
       end
     end
 

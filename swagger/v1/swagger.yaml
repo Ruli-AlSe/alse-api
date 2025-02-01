@@ -831,6 +831,12 @@ components:
         image_url:
           type: string
           required: true
+        slug:
+          type: string
+          required: true
+        short_description:
+          type: string
+          required: true
         credits:
           type: string
           required: false
@@ -839,6 +845,8 @@ components:
           title: test
           content: post description
           image_url: image.url.com
+          slug: test-slug
+          short_description: short description
           credits: "(page.link,page name,user name)"
     category:
       type: object

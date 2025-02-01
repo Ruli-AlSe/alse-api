@@ -4,9 +4,14 @@ module V1
     before_action :set_company_by_current_user, only: %i[create update destroy restore]
     before_action :set_company_by_email, only: %i[index]
     before_action :set_post, only: %i[update destroy]
+    before_action :set_post_by_slug, only: %i[show]
 
     def index
       @posts = @company.posts
+    end
+
+    def show
+      render :show, status: :ok
     end
 
     def create
@@ -52,7 +57,7 @@ module V1
     end
 
     def post_params
-      params.require(:post).permit(:title, :content, :credits, :image_url, :slug, :category_id)
+      params.require(:post).permit(:title, :content, :credits, :image_url, :slug, :short_description, :category_id)
     end
 
     def set_company_by_current_user
@@ -61,6 +66,12 @@ module V1
 
     def set_post
       @post = @company.posts.find_by(id: params[:id])
+
+      head :not_found unless @post
+    end
+
+    def set_post_by_slug
+      @post = Post.find_by(slug: params[:slug])
 
       head :not_found unless @post
     end

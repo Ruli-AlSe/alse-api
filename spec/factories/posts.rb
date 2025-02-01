@@ -5,6 +5,7 @@ FactoryBot.define do
     credits { "(#{Faker::Internet.domain_name}, #{Faker::Internet.domain_word}, #{Faker::FunnyName.name})" }
     image_url { Faker::Internet.url }
     slug { Faker::Book.title.parameterize }
+    short_description { Faker::Lorem.sentence(word_count: 10) }
     company
     category
   end

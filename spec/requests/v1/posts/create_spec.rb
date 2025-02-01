@@ -21,6 +21,7 @@ RSpec.describe 'v1/posts', type: :request do
                     credits: 'link.name, company name, user name',
                     image_url: 'image.url',
                     slug: 'test-slug',
+                    short_description: 'short description',
                     category_id: category.id } }
         }
         run_test!
@@ -35,6 +36,7 @@ RSpec.describe 'v1/posts', type: :request do
                     credits: 'link.name, company name, user name',
                     image_url: 'image.url',
                     slug: 'test-slug',
+                    short_description: 'short description',
                     category_id: category.id } }
         }
 

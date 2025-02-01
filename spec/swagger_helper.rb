@@ -132,6 +132,8 @@ RSpec.configure do |config|
               title: { type: 'string', required: true },
               content: { type: 'string', required: true },
               image_url: { type: 'string', required: true },
+              slug: { type: 'string', required: true },
+              short_description: { type: 'string', required: true },
               credits: { type: 'string', required: false }
             },
             example: {
@@ -139,6 +141,8 @@ RSpec.configure do |config|
                 title: 'test',
                 content: 'post description',
                 image_url: 'image.url.com',
+                slug: 'test-slug',
+                short_description: 'short description',
                 credits: '(page.link,page name,user name)'
               }
             }

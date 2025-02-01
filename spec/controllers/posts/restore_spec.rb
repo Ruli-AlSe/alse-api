@@ -22,7 +22,10 @@ RSpec.describe V1::PostsController, type: :controller do
       context 'response with post restored' do
         subject { payload_test }
         it { is_expected.to include(id: post.id) }
-        it { is_expected.to include(:id, :title, :content, :credits, :company_id, :created_at, :updated_at) }
+        it {
+          is_expected.to include(:id, :title, :content, :credits, :image_url, :slug, :category_name,
+                                 :short_description, :created_at, :updated_at)
+        }
       end
     end
 
