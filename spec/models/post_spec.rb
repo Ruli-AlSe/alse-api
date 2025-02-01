@@ -24,6 +24,14 @@ RSpec.describe Post, type: :model do
       should validate_presence_of(:slug)
     end
 
+    it 'validate if slug is unique' do
+      should validate_uniqueness_of(:slug)
+    end
+
+    it 'short_description is present' do
+      should validate_presence_of(:short_description)
+    end
+
     it 'belongs to a company' do
       should belong_to(:company)
     end
