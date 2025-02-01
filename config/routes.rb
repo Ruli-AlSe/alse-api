@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       resources :educations, only: %i[create update destroy]
       get 'projects/:email', to: 'projects#index', constraints: { email: /[^\/]+/ }
       get 'posts/:email', to: 'posts#index', constraints: { email: /[^\/]+/ }
+      get 'posts/slug/:slug', to: 'posts#show'
       resources :posts, only: %i[create update destroy] do
         # "v1/posts/:post_id/restore"
         post 'restore'

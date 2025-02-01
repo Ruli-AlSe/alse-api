@@ -10,5 +10,10 @@ class Post < ApplicationRecord
   belongs_to :category
 
   # Validations
-  validates :title, :content, :image_url, :slug, :company_id, presence: true
+  validates :title, :content, :image_url, :slug, :short_description, :company_id, presence: true
+  validates :slug, uniqueness: true
+
+  def category_name
+    category.title
+  end
 end
