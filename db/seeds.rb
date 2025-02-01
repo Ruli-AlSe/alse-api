@@ -94,6 +94,7 @@ puts 'Projects created'
                              content: "#{Faker::HTML.ordered_list}<br /><br />#{Faker::HTML.table}",
                              image_url: Faker::LoremFlickr.image,
                              slug: title.parameterize,
+                             short_description: Faker::Lorem.paragraph(sentence_count: 5),
                              credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})",
                              category_id: admin_categories.sample.id)
 
@@ -102,6 +103,7 @@ puts 'Projects created'
                              content: "#{Faker::HTML.ordered_list}<br /><br />#{Faker::HTML.table}",
                              image_url: Faker::LoremFlickr.image,
                              slug: title.parameterize,
+                             short_description: Faker::Lorem.paragraph(sentence_count: 5),
                              credits: "(#{Faker::Internet.url},#{Faker::Company.name},#{Faker::Twitter.screen_name})",
                              category_id: owner_categories.sample.id)
 end

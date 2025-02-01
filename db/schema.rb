@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_01_29_062431) do
+ActiveRecord::Schema.define(version: 2025_01_30_040125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 2025_01_29_062431) do
     t.string "credits"
     t.integer "category_id"
     t.string "slug"
+    t.string "short_description"
     t.index ["company_id"], name: "index_posts_on_company_id"
     t.index ["deleted_at"], name: "index_posts_on_deleted_at"
   end
